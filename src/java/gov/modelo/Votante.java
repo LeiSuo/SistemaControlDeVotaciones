@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package gov.modelo;
 
@@ -15,26 +11,28 @@ package gov.modelo;
  */
 public class Votante 
 {
-    private Ciudadano Ciudadano;
+    private Ciudadano ciudadano;
     private String clave;
     private String activo;
 
     public Votante() {
     }
 
-    public Votante(Ciudadano Ciudadano, String clave, String activo) {
-        this.Ciudadano = Ciudadano;
+    public Votante(Ciudadano ciudadano, String clave, String activo) {
+        this.ciudadano = ciudadano;
         this.clave = clave;
         this.activo = activo;
     }
 
     public Ciudadano getCiudadano() {
-        return Ciudadano;
+        return ciudadano;
     }
 
-    public void setCiudadano(Ciudadano Ciudadano) {
-        this.Ciudadano = Ciudadano;
+    public void setCiudadano(Ciudadano ciudadano) {
+        this.ciudadano = ciudadano;
     }
+
+   
 
     public String getClave() {
         return clave;

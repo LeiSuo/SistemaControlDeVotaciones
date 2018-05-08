@@ -10,34 +10,36 @@ package gov.modelo;
  * @author Gerson Baires
  */
 public class Voto {
-    private Ciudadano Ciudadano;
-    private TipoVoto  TipoVoto;
+    private Ciudadano ciudadano;
+    private TipoVoto  tipoVoto;
     private int voto;
 
     public Voto() {
     }
 
-    public Voto(Ciudadano Ciudadano, TipoVoto TipoVoto, int voto) {
-        this.Ciudadano = Ciudadano;
-        this.TipoVoto = TipoVoto;
+    public Voto(Ciudadano ciudadano, TipoVoto tipoVoto, int voto) {
+        this.ciudadano = ciudadano;
+        this.tipoVoto = tipoVoto;
         this.voto = voto;
     }
 
     public Ciudadano getCiudadano() {
-        return Ciudadano;
+        return ciudadano;
     }
 
-    public void setCiudadano(Ciudadano Ciudadano) {
-        this.Ciudadano = Ciudadano;
+    public void setCiudadano(Ciudadano ciudadano) {
+        this.ciudadano = ciudadano;
     }
 
     public TipoVoto getTipoVoto() {
-        return TipoVoto;
+        return tipoVoto;
     }
 
-    public void setTipoVoto(TipoVoto TipoVoto) {
-        this.TipoVoto = TipoVoto;
+    public void setTipoVoto(TipoVoto tipoVoto) {
+        this.tipoVoto = tipoVoto;
     }
+    
+    
 
     public int getVoto() {
         return voto;
