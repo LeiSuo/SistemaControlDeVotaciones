@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : loginAdmin
     Created on : 08-may-2018, 16:53:32
     Author     : SCOR64
@@ -9,9 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Login administrador</title>
+        <link href="css/login.css" rel="stylesheet" type="text/css"/>
+        <script src="js/login.js" type="text/javascript"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
     </body>
 </html>
