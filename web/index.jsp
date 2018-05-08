@@ -1,7 +1,7 @@
 <%-- 
-    Document   : test
-    Created on : May 8, 2018, 4:41:28 PM
-    Author     : jose_
+    Document   : index
+    Created on : 08-may-2018, 16:54:24
+    Author     : SCOR64
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-       sdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        <h1>Hello World!</h1>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : newjsp
-    Created on : 08-may-2018, 16:35:57
+    Document   : loginAdmin
+    Created on : 08-may-2018, 16:53:32
     Author     : SCOR64
 --%>
 
@@ -13,6 +13,5 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        pasdasdasdsa
     </body>
 </html>
