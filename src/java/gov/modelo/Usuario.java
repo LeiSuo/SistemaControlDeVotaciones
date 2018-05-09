@@ -17,15 +17,17 @@ public class Usuario {
     private String password;
     private String nombre;
     private String usuario;
+    private int nivel;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String password, String nombre, String usuario) {
+    public Usuario(int idUsuario, String password, String nombre, String usuario, int nivel) {
         this.idUsuario = idUsuario;
         this.password = password;
         this.nombre = nombre;
         this.usuario = usuario;
+        this.nivel = nivel;
     }
 
     public int getIdUsuario() {
@@ -58,5 +60,14 @@ public class Usuario {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }       
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+    
 }

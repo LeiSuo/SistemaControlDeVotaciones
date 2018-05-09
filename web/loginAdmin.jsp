@@ -14,12 +14,28 @@
         <script src="js/login.js" type="text/javascript"></script>
     </head>
     <body>
-        <div class="login">
-            <input type="text" placeholder="Username" id="username">  
-            <input type="password" placeholder="password" id="password">
-            <input type="submit" value="Sign In">
-        </div>
-        <div class="shadow"></div>
-
+        <form action="procesarLogin" method="post">
+            <div class="login">
+                <input type="text" placeholder="Username" id="username">  
+                <input type="password" placeholder="password" id="password">
+                <input type="submit" value="Sign In">
+            </div>
+            <div class="shadow"></div>
+        </form>
     </body>
 </html>
+<%
+    HttpSession sesion=request.getSession();
+    int nivel=0;
+    if(request.getAttribute("nivel")!=null){
+        nivel=(Integer) request.getAttribute("nivel");
+        if(nivel==1){
+            sesion.setAttribute("nombre",request.getAttribute("nombre"));
+            sesion.setAttribute("nivel", request.getAttribute("nivel"));
+            response.sendRedirect("Administrador/administrador.jsp");
+        }
+    }
+    if(request.getParameter("cerrar")!=null){
+        sesion.invalidate();
+    }
+%>
