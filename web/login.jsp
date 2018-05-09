@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : 08-may-2018, 16:53:23
-    Author     : SCOR64
+    Author     : Ulises
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
