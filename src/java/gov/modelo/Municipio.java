@@ -7,24 +7,24 @@ package gov.modelo;
  * @author jose_
  */
 public class Municipio {
-    private String idMunicipio;
+    private int idMunicipio;
     private String nombre;
     private Departamento departamento;
 
     public Municipio() {
     }
 
-    public Municipio(String idMunicipio, String nombre, Departamento departamento) {
+    public Municipio(int idMunicipio, String nombre, Departamento departamento) {
         this.idMunicipio = idMunicipio;
         this.nombre = nombre;
         this.departamento = departamento;
     }
 
-    public String getIdMunicipio() {
+    public int getIdMunicipio() {
         return idMunicipio;
     }
 
-    public void setIdMunicipio(String idMunicipio) {
+    public void setIdMunicipio(int idMunicipio) {
         this.idMunicipio = idMunicipio;
     }
 

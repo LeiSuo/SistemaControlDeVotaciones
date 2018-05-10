@@ -25,7 +25,7 @@ public class Conexion {
     
     public void conectar() throws Exception{
         try{
-            Class.forName("");
+            Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("");
         }catch(Exception e){
             throw e;
