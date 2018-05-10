@@ -19,7 +19,7 @@ public class DaoUsuario extends Conexion{
         try {
             this.conectar();
             sql="select nivel from usuario where usuario=? and password=?";
-            pre=this.getCon().prepareCall(sql);
+            pre=this.getCon().prepareStatement(sql);
             pre.setString(1, us.getUsuario());
             pre.setString(2, us.getPassword());
             res=pre.executeQuery();

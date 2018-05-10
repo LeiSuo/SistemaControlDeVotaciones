@@ -14,11 +14,11 @@
         <script src="js/login.js" type="text/javascript"></script>
     </head>
     <body>
-        <form action="procesarLogin" method="post">
+        <form action="procesarUsuario" method="post">
             <div class="login">
-                <input type="text" placeholder="Username" id="username">  
-                <input type="password" placeholder="password" id="password">
-                <input type="submit" value="Sign In">
+                <input type="text" placeholder="Username" name="txtUsuario">  
+                <input type="password" placeholder="password" name="txtPassword">
+                <input type="submit" name="btnIngresar" value="Sign In">
             </div>
             <div class="shadow"></div>
         </form>
