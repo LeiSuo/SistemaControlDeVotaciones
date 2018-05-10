@@ -1,6 +1,7 @@
 package gov.modelo;
 
 import java.awt.Image;
+import java.sql.Blob;
 
 /**
  * Nombre de la clase: Diputado
@@ -10,17 +11,17 @@ import java.awt.Image;
  */
 public class Diputado {
     private int idDiputado;
-    private int dui;
-    private int idPartido;
-    private Image imagen;
+    private Ciudadano ciu;
+    private PartidoPolitico partidoPolitico;
+    private Blob imagen;
 
     public Diputado() {
     }
 
-    public Diputado(int idDiputado, int dui, int idPartido, Image imagen) {
+    public Diputado(int idDiputado, Ciudadano ciu, PartidoPolitico partidoPolitico, Blob imagen) {
         this.idDiputado = idDiputado;
-        this.dui = dui;
-        this.idPartido = idPartido;
+        this.ciu = ciu;
+        this.partidoPolitico = partidoPolitico;
         this.imagen = imagen;
     }
 
@@ -32,28 +33,28 @@ public class Diputado {
         this.idDiputado = idDiputado;
     }
 
-    public int getDui() {
-        return dui;
+    public Ciudadano getCiu() {
+        return ciu;
     }
 
-    public void setDui(int dui) {
-        this.dui = dui;
+    public void setCiu(Ciudadano ciu) {
+        this.ciu = ciu;
     }
 
-    public int getIdPartido() {
-        return idPartido;
+    public PartidoPolitico getPartidoPolitico() {
+        return partidoPolitico;
     }
 
-    public void setIdPartido(int idPartido) {
-        this.idPartido = idPartido;
+    public void setPartidoPolitico(PartidoPolitico partidoPolitico) {
+        this.partidoPolitico = partidoPolitico;
     }
 
-    public Image getImagen() {
+    public Blob getImagen() {
         return imagen;
     }
 
-    public void setImagen(Image imagen) {
+    public void setImagen(Blob imagen) {
         this.imagen = imagen;
     }
-    
+         
 }
