@@ -19,6 +19,7 @@ public class DaoDiputado extends Conexion {
         List<Diputado> lst = new ArrayList<>();
         Diputado di;
         try {
+            this.conectar();
             String sql = "select * from diputado";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             rs = pst.executeQuery();       
