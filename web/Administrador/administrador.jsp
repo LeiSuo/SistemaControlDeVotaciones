@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Nombre del Document   : administrador
     Versión               : 1.0
     Fecha de creación     : 08-may-2018, 20:26:07
@@ -65,11 +65,47 @@
                         <li><a href="usuario.jsp">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="../loginAdmin.jsp?cerrar=true"> Cerrar sesion</a></li>
+                        <li><a href="../loginAdmin.jsp?cerrar=true">Cerrar sesion</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Formulario
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form class="" action="index.html" method="post">
+                        <label for=""></label>
+                        <div class="input-group">
+                            <input type="text" name="" value="">
+                        </div>
+                        <div class="input-group">
+                          <span class="input-group-addon">
+                            <input type="radio" aria-label="...">
+                          </span>
+                          <input type="text" class="form-control" aria-label="...">
+                        </div>
+                    </form>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="panel-footer">Panel footer</div>
+            </div>
+        </div>
         <script src="../js/complemento.js"></script>
         <script src="../js/bootstrap.min.js"></script>
     </body>

@@ -22,6 +22,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body>
@@ -53,5 +54,7 @@
                 </div>
             </div>
         </nav>
+        <script src="../js/complemento.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
     </body>
 </html>
