@@ -26,7 +26,7 @@
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -74,36 +74,12 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Formulario
+                        Bienvenida 
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <form class="" action="index.html" method="post">
-                        <label for=""></label>
-                        <div class="input-group">
-                            <input type="text" name="" value="">
-                        </div>
-                        <div class="input-group">
-                          <span class="input-group-addon">
-                            <input type="radio" aria-label="...">
-                          </span>
-                          <input type="text" class="form-control" aria-label="...">
-                        </div>
-                    </form>
+                    Bienvenido señor administrador
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="panel-footer">Panel footer</div>
             </div>
         </div>
         <script src="../js/complemento.js"></script>

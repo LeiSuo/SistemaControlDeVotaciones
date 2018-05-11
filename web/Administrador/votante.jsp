@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -56,7 +56,66 @@
                     </ul>
                 </div>
             </div>
-        </nav> 
+        </nav>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Formulario votantes
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <center>
+                    <form class="" action="index.html" method="post">
+                        <div class="input-group col-lg-6">
+                            <span class="input-group-addon" id="basic-addon1">DUI:&nbsp&nbsp&nbsp&nbsp</span>
+                            <input type="text" class="form-control" name="txtDui" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <span class="input-group-addon" id="basic-addon1">Contraseña:</span>
+                            <input type="text" class="form-control" name="txtPassword" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <span class="input-group-addon" id="basic-addon1">Estado: </span>
+                            <input type="text" class="form-control" name="txtEstado" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <div class="btn-group">
+                                <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
+                                <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
+                                <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
+                                <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
+                            </div>
+                        </div>
+                    </form>
+                    </center>
+                </div>
+                <div class="panel-footer"><center><strong>Datos votantes</strong></center></div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>DUI</th>
+                                <th>Nombre</th>
+                                <th>Contraseña</th>
+                                <th>Activo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <script src="../js/complemento.js"></script>
         <script src="../js/bootstrap.min.js"></script>
     </body>

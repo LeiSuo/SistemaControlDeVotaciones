@@ -13,7 +13,7 @@
         <title>CRUD diputado</title>
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -57,6 +57,69 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Formulario diputado
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <center>
+                    <form class="" action="index.html" method="post">
+                        <div class="input-group col-lg-6">
+                            <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
+                            <input type="text" class="form-control" name="txtIdDiputado" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <span class="input-group-addon" id="basic-addon1">DUI:</span>
+                            <input type="text" class="form-control" name="txtDUI" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <label for="cmbPartido">Partido:</label><br>
+                            <select class="form-control" name="cmbPartido" id="cmbPartido" aria-describedby="basic-addon1">
+                                <option>1</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <div class="btn-group">
+                                <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
+                                <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
+                                <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
+                                <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
+                            </div>
+                        </div>
+                    </form>
+                    </center>
+                </div>
+                <div class="panel-footer"><center><strong>Datos diputados</strong></center></div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DUI</th>
+                                <th>Nombre</th>
+                                <th>Partido</th>
+                                <th>Imagen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <script src="../js/complemento.js"></script>
         <script src="../js/bootstrap.min.js"></script>
     </body>

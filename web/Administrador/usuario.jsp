@@ -1,28 +1,16 @@
 <%-- 
-    Nombre del documento   : ciudadano
+    Nombre del documento   : usuarios
     fecha                  : 10-may-2018
     Autor                  : Ulises
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
-<%
-    HttpSession sesion=request.getSession();
-    if(sesion.getAttribute("nivel")==null){
-        response.sendRedirect("../loginAdmin.jsp");
-    }else{
-        String nivel = sesion.getAttribute("nivel").toString();
-        if(!nivel.equals("1")){
-            response.sendRedirect("../loginAdmin.jsp");
-        }
-    }
-%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <title>CRUD ciudadano</title>
+        <title>JSP Page</title>
     </head>
     <body>
         <nav class="navbar navbar-default">
@@ -41,7 +29,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Poblacion<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Ciudadano</a></li>
+                                <li><a href="ciudadano.jsp">Ciudadano</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="votante.jsp">Votante</a></li>
                             </ul>
@@ -61,7 +49,7 @@
                             </ul>
                         </li>
                         <li><a href="tipoVoto.jsp">Tipo de voto</a></li>
-                        <li><a href="usuario.jsp">Usuarios</a></li>
+                        <li><a href="#">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="../loginAdmin.jsp?cerrar=true"> Cerrar sesion</a></li>
@@ -73,15 +61,15 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Formulario ciudadano
+                        Formulario usuarios del sistema
                     </h3>
                 </div>
                 <div class="panel-body">
                     <center>
                     <form class="" action="index.html" method="post">
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">DUI:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtDui" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
+                            <input type="text" class="form-control" name="txtIdUsuario" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -90,35 +78,18 @@
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">Apellidos:</span>
-                            <input type="text" class="form-control" name="txtApellidos" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">Nombre de usuario:</span>
+                            <input type="text" class="form-control" name="txtUsuario" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <label for="cmbMunicipio">Municipio:</label><br>
-                            <select class="form-control" name="cmbMunicipio" id="cmbMunicipio" aria-describedby="basic-addon1">
-                                <option>1</option>
-                            </select>
+                            <span class="input-group-addon" id="basic-addon1">Contraseña: </span>
+                            <input type="text" class="form-control" name="txtContraseña" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <label for="Genero">Genero:</label><br>
-                            <label class="radio-inline">
-                                  <input type="radio" name="rdbGenero" value="Masculino" >Masculino
-                              </label>
-                              <label class="radio-inline">
-                                  <input type="radio" name="rdbGenero" value="Femenino" >Femenino
-                              </label>
-                        </div>
-                        <br>
-                        <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">Edad:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="number" step="1" min="18" max="100" value="18" class="form-control" name="txtEdad" aria-describedby="basic-addon1">
-                        </div>
-                        <br>
-                        <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">fecha caducidad(DUI):</span>
-                            <input type="date" class="form-control" name="txtFechaCad" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">Nivel: </span>
+                            <input type="text" class="form-control" name="txtNivel" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -132,19 +103,16 @@
                     </form>
                     </center>
                 </div>
-                <div class="panel-footer"><center><strong>Datos ciudadanos</strong></center></div>
+                <div class="panel-footer"><center><strong>Datos usuarios del sistema</strong></center></div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>DUI</th>
+                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Genero</th>
-                                <th>Edad</th>
-                                <th>Fecha de caducidad (DUI)</th>
-                                <th>Departamento</th>
-                                <th>Municipio</th>
+                                <th>Nombre usuario</th>
+                                <th>contraseña</th>
+                                <th>Nivel</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -154,9 +122,6 @@
                                 <td>3</td>
                                 <td>4</td>
                                 <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
                             </tr>
                         </tbody>
                     </table>
