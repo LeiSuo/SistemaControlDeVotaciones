@@ -4,6 +4,9 @@
     Autor                  : Ulises
 --%>
 
+<%@page import="gov.modelo.Departamento"%>
+<%@page import="java.util.List"%>
+<%@page import="gov.modelo.DaoDepartamento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <title>CUD departamento</title>
+        <%
+        if (request.getAttribute("msj") != null) {
+        %>
+        <script>
+            alert('<%= request.getAttribute("msj") %>');
+        </script>
+        <%
+            }
+        %>
+        <script>
+            function cargar(id, nombre){
+                document.frmDepartamento.txtIdDepartamento.value = id;
+                document.frmDepartamento.txtNombre.value = nombre;
+            }
+        </script>
     </head>
+    <%
+        DaoDepartamento daDe = new DaoDepartamento();
+    %>
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -66,7 +87,7 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="index.html" method="post">
+                    <form class="" action="../procesarDepartamento" method="post" name="frmDepartamento">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
                             <input type="text" class="form-control" name="txtIdDepartamento" aria-describedby="basic-addon1">
@@ -98,10 +119,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                               List<Departamento> lst = daDe.mostrarDepartamento();
+                               for(Departamento de:lst){
+                            %>
                             <tr>
-                                <td>1</td>
-                                <td>2</td>
+                                <td><%= de.getIdDepartamento() %></td>
+                                <td><%= de.getNombre() %></td>
+                                <td><a href="javascript:cargar(<%= de.getIdDepartamento() %>, '<%= de.getNombre() %>')">Seleccionar</a></td>
                             </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
                 </div>

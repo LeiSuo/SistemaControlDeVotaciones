@@ -12,6 +12,10 @@
         <servlet-name>ProcesarUsuario</servlet-name>
         <servlet-class>gov.controlador.ProcesarUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarDepartamento</servlet-name>
+        <servlet-class>gov.controlador.ProcesarDepartamento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcesarCiudadano</servlet-name>
         <url-pattern>/procesarCiudadano</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ProcesarUsuario</servlet-name>
         <url-pattern>/procesarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarDepartamento</servlet-name>
+        <url-pattern>/procesarDepartamento</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
