@@ -8,6 +8,17 @@
 <%@page import="java.util.List"%>
 <%@page import="gov.modelo.DaoDepartamento"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion=request.getSession();
+    if(sesion.getAttribute("nivel")==null){
+        response.sendRedirect("../loginAdmin.jsp");
+    }else{
+        String nivel = sesion.getAttribute("nivel").toString();
+        if(!nivel.equals("1")){
+            response.sendRedirect("../loginAdmin.jsp");
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,10 +26,10 @@
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <title>CUD departamento</title>
         <%
-        if (request.getAttribute("msj") != null) {
+        if (request.getSession().getAttribute("msj") != null) {
         %>
         <script>
-            alert('<%= request.getAttribute("msj") %>');
+            alert('<%= request.getSession().getAttribute("msj") %>');
         </script>
         <%
             }
@@ -90,7 +101,7 @@
                     <form class="" action="../procesarDepartamento" method="post" name="frmDepartamento">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtIdDepartamento" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="txtIdDepartamento" aria-describedby="basic-addon1" readOnly>
                         </div>
                         <br>
                         <div class="input-group col-lg-6">

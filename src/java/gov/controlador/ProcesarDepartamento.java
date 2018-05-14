@@ -31,17 +31,14 @@ public class ProcesarDepartamento extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         Departamento de = new Departamento();
         DaoDepartamento daDe = new DaoDepartamento();
-        RequestDispatcher rd = null;
         String msj = null;
         try {
-       
             de.setNombre(request.getParameter("txtNombre"));
-            
             if (request.getParameter("btnRegistrar") != null) {
                 daDe.insertarDepartamento(de);
                 msj = "Departamento ingresado";
@@ -54,14 +51,12 @@ public class ProcesarDepartamento extends HttpServlet {
                 daDe.eliminarDepartamento(de);
                 msj = "Departamento Eliminado";
             }
-            rd = request.getRequestDispatcher("Administrador/departamento.jsp");
-            request.setAttribute("msj", msj);
         } catch (Exception e) {
-            request.setAttribute("error", msj);
-            e.toString();
+            msj=e.toString();
+        }finally{
+            request.getSession().setAttribute("msj",msj);
+            response.sendRedirect("Administrador/departamento.jsp");
         }
-        rd.forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
