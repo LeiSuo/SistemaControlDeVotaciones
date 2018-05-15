@@ -41,7 +41,7 @@ public class DaoTipoVoto extends Conexion{
     public void insertarTipoVoto(TipoVoto tv) throws Exception{
         try {
             this.conectar();
-            String sql = "insert into tipoVoto(nombre) values(?)";
+            String sql = "insert into tipovoto(nombre) values(?)";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, tv.getNombre());
             pst.executeUpdate();
@@ -55,7 +55,7 @@ public class DaoTipoVoto extends Conexion{
     public void modificarTipoVoto(TipoVoto tv) throws Exception{
         try {
             this.conectar();
-            String sql = "update tipoVoto set nombre = ? where idTipoVoto = ?";
+            String sql = "update tipovoto set nombre = ? where idTipoVoto = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, tv.getNombre());
             pst.setInt(2, tv.getIdTipoVoto());
@@ -70,7 +70,7 @@ public class DaoTipoVoto extends Conexion{
     public void eliminarTipoVoto(TipoVoto tv) throws Exception{
         try {
             this.conectar();
-            String sql = "delete from tipoVoto where idTipoVoto = ?";
+            String sql = "delete from tipovoto where idTipoVoto = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setInt(1, tv.getIdTipoVoto());
             pst.executeUpdate();
