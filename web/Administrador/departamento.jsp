@@ -39,6 +39,9 @@
             function cargar(id, nombre){
                 document.frmDepartamento.txtIdDepartamento.value = id;
                 document.frmDepartamento.txtNombre.value = nombre;
+                $('body,html').animate({
+                    scrollTop:'0px'
+                });
             }
         </script>
     </head>
@@ -123,11 +126,12 @@
                 </div>
                 <div class="panel-footer"><center><strong>Datos Departamento</strong></center></div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Departamento</th>
+                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
