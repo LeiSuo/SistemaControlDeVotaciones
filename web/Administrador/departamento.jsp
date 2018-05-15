@@ -24,7 +24,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <title>CUD departamento</title>
+        <title>CRUD departamento</title>
         <%
         if (request.getSession().getAttribute("msj") != null) {
         %>
@@ -32,6 +32,7 @@
             alert('<%= request.getSession().getAttribute("msj") %>');
         </script>
         <%
+            request.getSession().setAttribute("msj",null);
             }
         %>
         <script>

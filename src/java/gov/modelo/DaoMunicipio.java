@@ -16,18 +16,21 @@ public class DaoMunicipio extends Conexion {
     public List<Municipio> mostrarMunicipio() throws Exception{
         ResultSet rs;
         List<Municipio> lst = new ArrayList<>();
-        String sql = "select * from municipio";
+        String sql = "select municipio.idMunicipio, municipio.nombre as nombreMun,"
+                + "departamento.idDepartamento, departamento.nombre as nombreDep "
+                + "from municipio inner join departamento on "
+                + "municipio.idDepartamento = departamento.idDepartamento; ";
         Municipio mu;
         try {
             this.conectar();
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             rs = pst.executeQuery();
-            
             while (rs.next()) {                
                 Departamento de = new Departamento();
                 de.setIdDepartamento(rs.getInt("idDepartamento"));
+                de.setNombre(rs.getString("nombreDep"));
                 mu = new Municipio(rs.getInt("idMunicipio"),
-                                   rs.getString("nombre"),
+                                   rs.getString("nombreMun"),
                                    de);
                 lst.add(mu);
             }

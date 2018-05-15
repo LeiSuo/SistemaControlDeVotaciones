@@ -43,6 +43,10 @@ public class Municipio {
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
+
+    public void setIdMunicipio(String txtIdMunicipio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

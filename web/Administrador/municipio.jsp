@@ -4,14 +4,51 @@
     Autor                  : Ulises
 --%>
 
+<%@page import="gov.modelo.DaoDepartamento"%>
+<%@page import="gov.modelo.Departamento"%>
+<%@page import="gov.modelo.Departamento"%>
+<%@page import="gov.modelo.DaoMunicipio"%>
+<%@page import="gov.modelo.Municipio"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion=request.getSession();
+    if(sesion.getAttribute("nivel")==null){
+        response.sendRedirect("../loginAdmin.jsp");
+    }else{
+        String nivel = sesion.getAttribute("nivel").toString();
+        if(!nivel.equals("1")){
+            response.sendRedirect("../loginAdmin.jsp");
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <title>CRUD municipio</title>
+        <title>CRUD Municipio</title>
+        <%
+        if (request.getSession().getAttribute("msj") != null) {
+        %>
+        <script>
+            alert('<%= request.getSession().getAttribute("msj") %>');
+        </script>
+        <%
+            request.getSession().setAttribute("msj",null);
+            }
+        %>
+        <script>
+            function cargar(idMun, nombre, dep){
+                document.frmMunicipio.txtIdMunicipio.value = idMun;
+                document.frmMunicipio.txtNombre.value = nombre;
+                document.frmMunicipio.cmbDepartamento.value=dep;
+            }
+        </script>
     </head>
+    <%
+        DaoMunicipio daoMun = new DaoMunicipio();
+    %>
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -66,15 +103,31 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="index.html" method="post">
+                        <form class="" action="../procesarMunicipio" method="post" name="frmMunicipio">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtIdMunicipio" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="txtIdMunicipio" aria-describedby="basic-addon1" readonly>
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">Nombre:</span>
                             <input type="text" class="form-control" name="txtNombre" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group col-lg-6">
+                            <label for="cmbDepartamento">Departamento:</label><br>
+                            <select name="cmbDepartamento" class="form-control" id="cmbDepartamento" aria-describedby="basic-addon1">
+                                <%
+                                    DaoDepartamento dao = new DaoDepartamento();
+                                    List<Departamento> lstPv=dao.mostrarDepartamento();
+                                    for(Departamento p:lstPv){
+                                %>
+                                <option value="<%=p.getIdDepartamento()%>">
+                                    <%=p.getNombre()%>
+                                </option>
+                                <%
+                                    }
+                                %>
+                            </select>
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -99,11 +152,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                               List<Municipio> lst = daoMun.mostrarMunicipio();
+                               for(Municipio mu:lst){
+                            %>
                             <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
+                                <td><%= mu.getIdMunicipio()%></td>
+                                <td><%= mu.getNombre() %></td>
+                                <td><%= mu.getDepartamento().getIdDepartamento()%></td>
+                                <td><%= mu.getDepartamento().getNombre() %></td>
+                                <td><a href="javascript:cargar(<%= mu.getIdMunicipio() %>, '<%= mu.getNombre() %>','<%= mu.getDepartamento().getIdDepartamento()%>')">Seleccionar</a></td>
                             </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
                 </div>
