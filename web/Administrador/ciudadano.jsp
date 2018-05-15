@@ -4,26 +4,35 @@
     Autor                  : Ulises
 --%>
 
+<%@page import="gov.modelo.Ciudadano"%>
+<%@page import="gov.modelo.DaoCiudadano"%>
+<%@page import="gov.modelo.Municipio"%>
+<%@page import="java.util.List"%>
+<%@page import="gov.modelo.DaoMunicipio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true" %>
-<%
-    HttpSession sesion=request.getSession();
-    if(sesion.getAttribute("nivel")==null){
-        response.sendRedirect("../loginAdmin.jsp");
-    }else{
-        String nivel = sesion.getAttribute("nivel").toString();
-        if(!nivel.equals("1")){
-            response.sendRedirect("../loginAdmin.jsp");
-        }
-    }
-%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <title>CRUD ciudadano</title>
+          <%
+        if (request.getSession().getAttribute("msj") != null) {
+        %>
+        <script>
+            alert('<%= request.getSession().getAttribute("msj") %>');
+        </script>
+        <%
+            request.getSession().setAttribute("msj",null);
+            }
+        %>
     </head>
+    <%
+        DaoMunicipio daoMu = new DaoMunicipio();
+        DaoCiudadano daoCiu = new DaoCiudadano();   
+    %>
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -97,7 +106,14 @@
                         <div class="input-group col-lg-6">
                             <label for="cmbMunicipio">Municipio:</label><br>
                             <select class="form-control" name="cmbMunicipio" id="cmbMunicipio" aria-describedby="basic-addon1">
-                                <option>1</option>
+                                <% 
+                                   List<Municipio> lst = daoMu.mostrarMunicipio();
+                                   for(Municipio muni:lst)
+                                   {
+                                %>
+                                <option value="<%=muni.getIdMunicipio()%>">
+                                    <%=muni.getNombre()%></option>
+                                <% }%>
                             </select>
                         </div>
                         <br>
@@ -147,17 +163,42 @@
                                 <th>Municipio</th>
                             </tr>
                         </thead>
+                        <%
+                            List<Ciudadano>lstciuda = daoCiu.mostrarCiudadano();
+                            for(Ciudadano ciuda:lstciuda)
+                            {    List<Municipio>lstmuni= daoMu.mostrarMunicipio();
+                                    for(Municipio muni:lstmuni)
+                                    {
+                            
+                        %>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
+                                <td><%=ciuda.getDui()%></td>
+                                <td><%=ciuda.getNombre()%></td>
+                                <td><%=ciuda.getApellidos()%></td>
+                                <td><%=ciuda.getGenero()%></td>
+                                <td><%=ciuda.getEdad()%></td>
+                                <td><%=ciuda.getFechaExpiracion()%></td>
+                                <td><%=muni.getDepartamento().getIdDepartamento()%></td>
+                                <td><%=muni.getIdMunicipio()%></td>
+                                <td><a href="javascript:cargar
+                                       (<%=ciuda.getDui()%>,
+                                       '<%=ciuda.getNombre()%>',
+                                       '<%=ciuda.getApellidos()%>',
+                                       '<%=ciuda.getGenero()%>',
+                                       '<%=ciuda.getEdad()%>',
+                                       '<%=ciuda.getFechaExpiracion()%>',
+                                       '<%=ciuda.getMunicipio().getDepartamento()%>',
+                                       '<%=ciuda.getMunicipio().getNombre()%>')">Seleccionar</a></td>
                             </tr>
+                            <%   
+                                }
+                                        }
+                            %>
+                            
+        
+
+
                         </tbody>
                     </table>
                 </div>
