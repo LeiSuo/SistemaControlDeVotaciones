@@ -1,27 +1,23 @@
-
-
 package gov.controlador;
 
-import gov.modelo.DaoMunicipio;
-import gov.modelo.Departamento;
-import gov.modelo.Municipio;
+import gov.modelo.DaoTipoVoto;
+import gov.modelo.TipoVoto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Nombre de la clase: ProcesarMunicipio
- * Versión: 1.0
- * Fecha: 14-may-2018
- * Autor: Ulises
+ * Nombre: ProcesarTipoVoto
+ * Version: 1.0
+ * Fecha: 15-may-2018
+ * Copyright: Me
+ * @author Gerson Baires
  */
-
-public class ProcesarMunicipio extends HttpServlet {
+public class ProcesarTipoVoto extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -31,34 +27,43 @@ public class ProcesarMunicipio extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException, Exception {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String msj=null;
-        Municipio mun = new Municipio();
-        DaoMunicipio dao = new DaoMunicipio();
-        Departamento dep = new Departamento();
-        try {
-            mun.setNombre(request.getParameter("txtNombre"));
-            dep.setIdDepartamento(Integer.parseInt(request.getParameter("cmbDepartamento")));
-            mun.setDepartamento(dep);
-            if(request.getParameter("btnRegistrar")!=null){
-                dao.insertarMunicipio(mun);
-                msj="Municipio insertado";
-            }else if(request.getParameter("btnModificar")!=null){
-                mun.setIdMunicipio(Integer.parseInt(request.getParameter("txtIdMunicipio")));
-                dao.modificarMunicipio(mun);
-                msj="Municipio modificado";
-            }else if(request.getParameter("btnEliminar")!=null){
-                mun.setIdMunicipio(Integer.parseInt(request.getParameter("txtIdMunicipio")));
-                dao.eliminarMunicipio(mun);
-                msj="Municipio eliminado";
+        RequestDispatcher rd = null;
+        DaoTipoVoto daoTipo = new DaoTipoVoto();
+        String msj = null;
+        TipoVoto TV = new TipoVoto();
+        try 
+        {
+            TV.setNombre(request.getParameter("txtTipoVoto"));
+            if(request.getParameter("btnRegistrar")!=null)
+            {
+                daoTipo.insertarTipoVoto(TV);
+                msj="Tipo de Voto Insertado Correctamente";
             }
-        } catch (Exception e) {
+            if(request.getParameter("btnModificar")!=null)
+            {
+                    TV.setIdTipoVoto(Integer.parseInt(request.getParameter("txtIdTipoVoto")));
+                    daoTipo.modificarTipoVoto(TV);
+                    msj="Tipo de Voto Modificado Correctamente";
+            }
+            if(request.getParameter("btnEliminar")!=null)
+            {
+                TV.setIdTipoVoto(Integer.parseInt(request.getParameter("txtIdTipoVoto")));
+                daoTipo.eliminarTipoVoto(TV);
+                msj="Tipo de Voto Eliminado Correctamente";
+            }      
+        } 
+        catch (Exception e) 
+        {
             msj=e.toString();
-        }finally{
+        }
+        finally
+        {
             request.getSession().setAttribute("msj", msj);
-            response.sendRedirect("Administrador/municipio.jsp");
+            response.sendRedirect("Administrador/tipoVoto.jsp");
         }
     } 
 
@@ -73,11 +78,7 @@ public class ProcesarMunicipio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(ProcesarMunicipio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     } 
 
     /** 
@@ -90,11 +91,7 @@ public class ProcesarMunicipio extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception ex) {
-            Logger.getLogger(ProcesarMunicipio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /** 

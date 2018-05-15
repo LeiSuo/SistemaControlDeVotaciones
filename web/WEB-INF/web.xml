@@ -20,6 +20,10 @@
         <servlet-name>ProcesarMunicipio</servlet-name>
         <servlet-class>gov.controlador.ProcesarMunicipio</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarTipoVoto</servlet-name>
+        <servlet-class>gov.controlador.ProcesarTipoVoto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcesarCiudadano</servlet-name>
         <url-pattern>/procesarCiudadano</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ProcesarMunicipio</servlet-name>
         <url-pattern>/procesarMunicipio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarTipoVoto</servlet-name>
+        <url-pattern>/procesarTipoVoto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

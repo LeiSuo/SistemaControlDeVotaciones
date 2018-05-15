@@ -4,14 +4,49 @@
     Autor                  : Ulises
 --%>
 
+<%@page import="gov.modelo.TipoVoto"%>
+<%@page import="java.util.List"%>
+<%@page import="gov.modelo.DaoTipoVoto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion=request.getSession();
+    if(sesion.getAttribute("nivel")==null){
+        response.sendRedirect("../loginAdmin.jsp");
+    }else{
+        String nivel = sesion.getAttribute("nivel").toString();
+        if(!nivel.equals("1")){
+            response.sendRedirect("../loginAdmin.jsp");
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script>
+            function cargar (id,tipo) 
+            {
+                document.FrmTipoVoto.txtIdTipoVoto.value=id;
+                document.FrmTipoVoto.txtTipoVoto.value=tipo;
+            }
+        </script>
         <title>CRUD tipo de voto</title>
+       <%
+        if (request.getSession().getAttribute("msj") != null) {
+        %>
+        <script>
+            alert('<%= request.getSession().getAttribute("msj") %>');
+        </script>
+        <%
+            request.getSession().setAttribute("msj",null);
+            }
+        %>
     </head>
+    <% 
+        DaoTipoVoto daoTipo = new DaoTipoVoto();
+        
+    %>   
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -59,17 +94,18 @@
         </nav>
         <div class="container">
             <div class="panel panel-primary">
-                <div class="panel-heading">
+                <div class="panel-heading"> 
                     <h3 class="panel-title">
                         Formulario de tipos de voto
                     </h3>
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="index.html" method="post">
+                        <form class="" action="../procesarTipoVoto" method="post" name="FrmTipoVoto">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtIdTipoVoto" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="txtIdTipoVoto" aria-describedby="basic-addon1"
+                                   readonly="">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -97,11 +133,22 @@
                                 <th>Tipo de voto</th>
                             </tr>
                         </thead>
+                        <%
+                          List<TipoVoto>lst=daoTipo.mostrarTipo();
+                          for(TipoVoto tipo:lst)
+                          {
+                        %>   
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>2</td>
+                                <td><%=tipo.getIdTipoVoto()%></td>
+                                <td><%=tipo.getNombre()%></td>
+                                <td><a href="JavaScript:cargar
+                                       (<%=tipo.getIdTipoVoto()%>,
+                                       '<%=tipo.getNombre()%>')">Seleccionar</a></td>
                             </tr>
+                            <% 
+                            }
+                            %> 
                         </tbody>
                     </table>
                 </div>
