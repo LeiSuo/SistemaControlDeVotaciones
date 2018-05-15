@@ -4,14 +4,51 @@
     Autor                  : Ulises
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="gov.modelo.PartidoPolitico"%>
+<%@page import="gov.modelo.DaoPartidoPolitico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion=request.getSession();
+    if(sesion.getAttribute("nivel")==null){
+        response.sendRedirect("../loginAdmin.jsp");
+    }else{
+        String nivel = sesion.getAttribute("nivel").toString();
+        if(!nivel.equals("1")){
+            response.sendRedirect("../loginAdmin.jsp");
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <title>CRUD partido politico</title>
+        <%
+            if(request.getSession().getAttribute("msj")!=null){
+        %>
+        <script>
+            alert('<%= request.getSession().getAttribute("msj") %>');
+        </script>
+        <%
+            request.getSession().setAttribute("msj",null);
+            }
+        %>
+        <script>
+            function cargar(id, nombre){
+                document.frmPartido.txtIdPartido.value = id;
+                document.frmPartido.txtNombre.value = nombre;
+                $('body,html').animate({
+                    scrollTop:'0px'
+                });
+            }
+        </script>
     </head>
+    <%
+        DaoPartidoPolitico dao  = new DaoPartidoPolitico();
+        PartidoPolitico pp = new PartidoPolitico();
+    %>
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -66,7 +103,7 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="index.html" method="post">
+                    <form action="../procesarPartido" method="post" name="frmPartido" >
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
                             <input type="text" class="form-control" name="txtIdPartido" aria-describedby="basic-addon1">
@@ -75,6 +112,11 @@
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">Nombre:</span>
                             <input type="text" class="form-control" name="txtNombre" aria-describedby="basic-addon1">
+                        </div>
+                        <br>
+                        <div class="input-group col-lg-6">
+                            <span class="input-group-addon" id="basic-addon1">Seleccionar imagen</span>                 
+                            <input type="file" class="form-control" name="fichero" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -99,11 +141,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                                List<PartidoPolitico> lst = dao.mostrar();
+                                for(PartidoPolitico par:lst){
+                            %>
                             <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
+                                <td><%=par.getIdPartido()%></td>
+                                <td><%=par.getNombre()%></td>
+                                <td>imagen</td>
+                                <td><a href="javascript:cargar(<%= par.getIdPartido()%>, '<%= par.getNombre()%>')">Seleccionar</a></td>
                             </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
                 </div>

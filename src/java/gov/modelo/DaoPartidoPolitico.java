@@ -13,19 +13,19 @@ import java.util.List;
  * Autor: Ulises Guzman
  */
 public class DaoPartidoPolitico extends Conexion{
-    public List<PartidoPolitico> mostrarPartidoPolitico() throws Exception{
+    public List<PartidoPolitico> mostrar() throws Exception{
         ResultSet rs;
         List<PartidoPolitico> lst = new ArrayList<>();
-        String sql = "select * from partidoPolitico";
+        String sql = "select * from partidopolitico";
         try {
             this.conectar();
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             rs = pst.executeQuery();
-            
             while (rs.next()) {                
                 PartidoPolitico pp = new PartidoPolitico();
                 pp.setIdPartido(rs.getInt("idPartido"));
                 pp.setNombre(rs.getString("nombre"));
+                pp.setArchivoimg2(rs.getBytes("bandera"));
                 lst.add(pp);
             }
         } catch (Exception e) {
@@ -36,12 +36,13 @@ public class DaoPartidoPolitico extends Conexion{
         return lst;
     }
     
-    public void insertarPartidoPolitico(PartidoPolitico pp) throws Exception{
+    public void insertar(PartidoPolitico pp) throws Exception{
         try {
             this.conectar();
-            String sql = "insert into partidoPolitico(nombre) values(?)";
+            String sql = "insert into partidopolitico(nombre, bandera) values(?,?)";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, pp.getNombre());
+            pst.setBlob(2, pp.getArchivoimg());
             pst.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -50,10 +51,26 @@ public class DaoPartidoPolitico extends Conexion{
         }
     }
     
-    public void modificarPartidoPolitico(PartidoPolitico pp) throws Exception{
+    public void modificar(PartidoPolitico pp) throws Exception{
         try {
             this.conectar();
-            String sql = "update partidoPolitico set nombre = ? where idPartido = ?";
+            String sql = "update partidopolitico set nombre = ?, bandera= ?  where idPartido = ?";
+            PreparedStatement pst = this.getCon().prepareStatement(sql);
+            pst.setString(1, pp.getNombre());
+            pst.setBlob(2, pp.getArchivoimg());
+            pst.setInt(3, pp.getIdPartido());
+            pst.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.desconectar();
+        }
+    }
+    
+    public void modificar2(PartidoPolitico pp) throws Exception{
+        try {
+            this.conectar();
+            String sql = "update partidopolitico set nombre = ? where idPartido = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, pp.getNombre());
             pst.setInt(2, pp.getIdPartido());
@@ -64,11 +81,10 @@ public class DaoPartidoPolitico extends Conexion{
             this.desconectar();
         }
     }
-    
-    public void eliminarPartidoPolitico(PartidoPolitico pp) throws Exception{
+    public void eliminar(PartidoPolitico pp) throws Exception{
         try {
             this.conectar();
-            String sql = "delete from partidoPolitico where partidoPolitico = ?";
+            String sql = "delete from partidopolitico where idPartido = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setInt(1, pp.getIdPartido());
             pst.executeUpdate();

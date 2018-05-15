@@ -43,6 +43,9 @@
                 document.frmMunicipio.txtIdMunicipio.value = idMun;
                 document.frmMunicipio.txtNombre.value = nombre;
                 document.frmMunicipio.cmbDepartamento.value=dep;
+                $('body,html').animate({
+                    scrollTop:'0px'
+                });
             }
         </script>
     </head>
@@ -143,12 +146,14 @@
                 </div>
                 <div class="panel-footer"><center><strong>Datos municipio</strong></center></div>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Municipio</th>
+                                <th>Id Departamento</th>
                                 <th>Departamento</th>
+                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
