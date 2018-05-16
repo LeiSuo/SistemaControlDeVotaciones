@@ -9,11 +9,15 @@ package gov.controlador;
 import gov.modelo.DaoPartidoPolitico;
 import gov.modelo.PartidoPolitico;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  * Nombre de la clase: ProcesarPartido
@@ -21,7 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  * Fecha: 15-may-2018
  * Autor: Ulises
  */
-
+@WebServlet("/uploadServlet")
+@MultipartConfig(maxFileSize = 16177215)
 public class ProcesarPartido extends HttpServlet {
    
     /** 
@@ -31,6 +36,7 @@ public class ProcesarPartido extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,8 +46,11 @@ public class ProcesarPartido extends HttpServlet {
         PartidoPolitico pp = new PartidoPolitico();
         try {
             pp.setNombre(request.getParameter("txtNombre"));
-                       
             if(request.getParameter("btnRegistrar")!=null){
+                Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
+                if (filePart != null) {
+                    pp.setBandera(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
+                }
                 dao.insertar(pp);
                 msj="Municipio insertado";
             }else if(request.getParameter("btnModificar")!=null){

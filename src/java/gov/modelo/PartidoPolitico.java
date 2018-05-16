@@ -2,6 +2,7 @@ package gov.modelo;
 
 import java.io.InputStream;
 import java.sql.Blob;
+import javax.persistence.Column;
 
 /**
  * Nombre: PartidoPolitico
@@ -14,19 +15,12 @@ public class PartidoPolitico
 {
     private int idPartido;
     private String nombre;
-    InputStream archivoimg;
-    private byte[] archivoimg2;
+    InputStream bandera;
+    private byte[] image;  
+    private String base64Image;
 
     public PartidoPolitico() {
     }
-
-    public PartidoPolitico(int idPartido, String nombre, InputStream archivoimg, byte[] archivoimg2) {
-        this.idPartido = idPartido;
-        this.nombre = nombre;
-        this.archivoimg = archivoimg; //para guardar en base de datos
-        this.archivoimg2 = archivoimg2; //para mostrar
-    }
-
     public int getIdPartido() {
         return idPartido;
     }
@@ -43,26 +37,25 @@ public class PartidoPolitico
         this.nombre = nombre;
     }
 
-    public InputStream getArchivoimg() {
-        return archivoimg;
+    public InputStream getBandera() {
+        return bandera;
     }
 
-    public void setArchivoimg(InputStream archivoimg) {
-        this.archivoimg = archivoimg;
+    public void setBandera(InputStream bandera) {
+        this.bandera = bandera;
     }
-    /**
-     * @return the archivopdf2
-     */
-    public byte[] getArchivoimg2() {
-        return archivoimg2;
+    
+    @Column(name = "image")
+    public byte[] getImage() {
+        return this.image;
     }
-    /**
-     * @param archivopdf2 the archivopdf2 to set
-     */
-    public void setArchivoimg2(byte[] archivoimg2) {
-        this.archivoimg2 = archivoimg2;
+    
+    public String getBase64Image() {
+        return base64Image;
+    }
+ 
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
     }
 
-    
-    
 }

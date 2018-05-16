@@ -103,9 +103,9 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form action="../procesarPartido" method="post" name="frmPartido" >
+                    <form action="../procesarPartido" method="post" name="frmPartido" enctype="multipart/form-data">
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
+                            <span class="input-group-addon" id="basic-addon1" onlyread>ID:&nbsp&nbsp&nbsp&nbsp</span>
                             <input type="text" class="form-control" name="txtIdPartido" aria-describedby="basic-addon1">
                         </div>
                         <br>

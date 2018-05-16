@@ -25,7 +25,6 @@ public class DaoPartidoPolitico extends Conexion{
                 PartidoPolitico pp = new PartidoPolitico();
                 pp.setIdPartido(rs.getInt("idPartido"));
                 pp.setNombre(rs.getString("nombre"));
-                pp.setArchivoimg2(rs.getBytes("bandera"));
                 lst.add(pp);
             }
         } catch (Exception e) {
@@ -42,7 +41,7 @@ public class DaoPartidoPolitico extends Conexion{
             String sql = "insert into partidopolitico(nombre, bandera) values(?,?)";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, pp.getNombre());
-            pst.setBlob(2, pp.getArchivoimg());
+            pst.setBlob(2, pp.getBandera());
             pst.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -57,7 +56,7 @@ public class DaoPartidoPolitico extends Conexion{
             String sql = "update partidopolitico set nombre = ?, bandera= ?  where idPartido = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, pp.getNombre());
-            pst.setBlob(2, pp.getArchivoimg());
+            pst.setBlob(2, pp.getBandera());
             pst.setInt(3, pp.getIdPartido());
             pst.executeUpdate();
         } catch (Exception e) {
