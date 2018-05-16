@@ -11,6 +11,7 @@ public class Ciudadano {
     private String nombre;
     private String apellidos;
     private Municipio municipio;
+    private Departamento departamento;
     private String genero;
     private int edad;
     private String fechaExpiracion;
@@ -18,11 +19,12 @@ public class Ciudadano {
     public Ciudadano() {
     }
 
-    public Ciudadano(String dui, String nombre, String apellidos, Municipio municipio, String genero, int edad, String fechaExpiracion) {
+    public Ciudadano(String dui, String nombre, String apellidos, Municipio municipio, Departamento departamento, String genero, int edad, String fechaExpiracion) {
         this.dui = dui;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.municipio = municipio;
+        this.departamento = departamento;
         this.genero = genero;
         this.edad = edad;
         this.fechaExpiracion = fechaExpiracion;
@@ -83,6 +85,12 @@ public class Ciudadano {
     public void setFechaExpiracion(String fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
-    
-    
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
 }

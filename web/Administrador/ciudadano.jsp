@@ -177,7 +177,7 @@
                                 <td><%=ciuda.getGenero()%></td>
                                 <td><%=ciuda.getEdad()%></td>
                                 <td><%=ciuda.getFechaExpiracion()%></td>
-                                <td><%=ciuda.getMunicipio().getDepartamento()%></td>
+                                <td><%=ciuda.getDepartamento().getNombre()%></td>
                                 <td><%=ciuda.getMunicipio().getNombre()%></td>
                                 <td><a href="javascript:cargar
                                        (<%=ciuda.getDui()%>,
@@ -186,8 +186,7 @@
                                        '<%=ciuda.getGenero()%>',
                                        '<%=ciuda.getEdad()%>',
                                        '<%=ciuda.getFechaExpiracion()%>',
-                                       '<%=ciuda.getMunicipio().getDepartamento()%>',
-                                       '<%=ciuda.getMunicipio().getNombre()%>')">Seleccionar</a></td>
+                                       '<%=ciuda.getMunicipio().getIdMunicipio()%>')">Seleccionar</a></td>
                             </tr>
                             <%   
                                 }

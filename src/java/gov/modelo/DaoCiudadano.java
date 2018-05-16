@@ -16,7 +16,7 @@ public class DaoCiudadano extends Conexion{
     public List<Ciudadano> mostrarCiudadano() throws Exception{
         ResultSet rs;
         List<Ciudadano> lst = new ArrayList<>();
-        String sql = "select * from ciudadano";
+        String sql ="SELECT ciudadano.dui, ciudadano.nombres , ciudadano.apellidos ,ciudadano.genero, ciudadano.edad, ciudadano.fechaExpiracion, departamento.nombre as nomDep,municipio.idMunicipio as idMun ,municipio.nombre as nomMun FROM ciudadano inner join municipio on ciudadano.idMunicipio = municipio.idMunicipio inner join departamento on municipio.idDepartamento = departamento.idDepartamento ";
         Ciudadano ciu;
         try {
             this.conectar();
@@ -25,10 +25,14 @@ public class DaoCiudadano extends Conexion{
             
             while (rs.next()) {                
                 Municipio mu = new Municipio();
+                mu.setIdMunicipio(rs.getInt("idMun"));
+                mu.setNombre(rs.getString("nomMun"));
+                Departamento dep = new Departamento();
+                dep.setNombre(rs.getString("nomDep"));
                 ciu = new Ciudadano(rs.getString("dui"), 
                         rs.getString("nombres"),
                         rs.getString("apellidos"),
-                        mu, 
+                        mu, dep,
                         rs.getString("genero"),
                         rs.getInt("edad"),
                         rs.getString("fechaExpiracion"));
