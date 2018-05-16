@@ -166,9 +166,7 @@
                         <%
                             List<Ciudadano>lstciuda = daoCiu.mostrarCiudadano();
                             for(Ciudadano ciuda:lstciuda)
-                            {    List<Municipio>lstmuni= daoMu.mostrarMunicipio();
-                                    for(Municipio muni:lstmuni)
-                                    {
+                            {    
                             
                         %>
                         <tbody>
@@ -179,8 +177,8 @@
                                 <td><%=ciuda.getGenero()%></td>
                                 <td><%=ciuda.getEdad()%></td>
                                 <td><%=ciuda.getFechaExpiracion()%></td>
-                                <td><%=muni.getDepartamento().getIdDepartamento()%></td>
-                                <td><%=muni.getIdMunicipio()%></td>
+                                <td><%=ciuda.getMunicipio().getDepartamento()%></td>
+                                <td><%=ciuda.getMunicipio().getNombre()%></td>
                                 <td><a href="javascript:cargar
                                        (<%=ciuda.getDui()%>,
                                        '<%=ciuda.getNombre()%>',
@@ -193,7 +191,6 @@
                             </tr>
                             <%   
                                 }
-                                        }
                             %>
                             
         
