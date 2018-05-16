@@ -46,19 +46,24 @@ public class ProcesarPartido extends HttpServlet {
         PartidoPolitico pp = new PartidoPolitico();
         try {
             pp.setNombre(request.getParameter("txtNombre"));
+            Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
+            if (filePart != null){
+                pp.setBandera(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
+            }
             if(request.getParameter("btnRegistrar")!=null){
-                Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
-                if (filePart != null) {
-                    pp.setBandera(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
-                }
                 dao.insertar(pp);
-                msj="Municipio insertado";
+                msj="Partido insertado";
             }else if(request.getParameter("btnModificar")!=null){
-                msj="Municipio modificado";
+                pp.setIdPartido(Integer.parseInt(request.getParameter("txtIdPartido")));
+                dao.modificar1(pp);
+                msj="Partido modificado";
             }else if(request.getParameter("btnEliminar")!=null){
                 pp.setIdPartido(Integer.parseInt(request.getParameter("txtIdPartido")));
                 dao.eliminar(pp);
-                msj="Municipio eliminado";
+                msj="Partido eliminado";
+            }else if(request.getParameter("btnModificar2")!=null){
+                pp.setIdPartido(Integer.parseInt(request.getParameter("txtIdPartido")));
+                dao.modificar2(pp);
             }
         } catch (Exception e) {
             msj= e.toString();

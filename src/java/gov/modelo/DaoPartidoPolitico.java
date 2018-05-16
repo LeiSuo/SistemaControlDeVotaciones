@@ -1,9 +1,13 @@
 package gov.modelo;
 
 import gov.conexion.Conexion;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -25,6 +29,25 @@ public class DaoPartidoPolitico extends Conexion{
                 PartidoPolitico pp = new PartidoPolitico();
                 pp.setIdPartido(rs.getInt("idPartido"));
                 pp.setNombre(rs.getString("nombre"));
+                
+                Blob blob = rs.getBlob("bandera"); //recuperamos los datos binarios de la base de datos
+                if(blob !=null){
+                    //Conversion de binario a cadena base64
+                    InputStream inputStream = blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead = -1;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] imageBytes = outputStream.toByteArray();
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                    //Fin de conversion
+
+                    pp.setBase64Image(base64Image); //Guardamos la conversion en nuestro objeto
+                    inputStream.close();
+                    outputStream.close();
+                }
                 lst.add(pp);
             }
         } catch (Exception e) {
@@ -50,10 +73,27 @@ public class DaoPartidoPolitico extends Conexion{
         }
     }
     
-    public void modificar(PartidoPolitico pp) throws Exception{
+    public void modificar1(PartidoPolitico pp) throws Exception{
         try {
             this.conectar();
-            String sql = "update partidopolitico set nombre = ?, bandera= ?  where idPartido = ?";
+            String sql = "";
+            sql = "UPDATE partidopolitico SET nombre = ?  where idPartido = ?";
+            PreparedStatement pst = this.getCon().prepareStatement(sql);
+            pst.setString(1, pp.getNombre());
+            pst.setInt(2, pp.getIdPartido());
+            pst.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.desconectar();
+        }
+    }
+    
+    public void modificar2(PartidoPolitico pp) throws Exception{
+        try {
+            this.conectar();
+            String sql = "";
+            sql = "update partidopolitico set nombre = ?, bandera= ?  where idPartido = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, pp.getNombre());
             pst.setBlob(2, pp.getBandera());
@@ -66,20 +106,6 @@ public class DaoPartidoPolitico extends Conexion{
         }
     }
     
-    public void modificar2(PartidoPolitico pp) throws Exception{
-        try {
-            this.conectar();
-            String sql = "update partidopolitico set nombre = ? where idPartido = ?";
-            PreparedStatement pst = this.getCon().prepareStatement(sql);
-            pst.setString(1, pp.getNombre());
-            pst.setInt(2, pp.getIdPartido());
-            pst.executeUpdate();
-        } catch (Exception e) {
-            throw e;
-        }finally{
-            this.desconectar();
-        }
-    }
     public void eliminar(PartidoPolitico pp) throws Exception{
         try {
             this.conectar();

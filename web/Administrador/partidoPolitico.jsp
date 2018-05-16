@@ -105,8 +105,8 @@
                     <center>
                     <form action="../procesarPartido" method="post" name="frmPartido" enctype="multipart/form-data">
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1" onlyread>ID:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtIdPartido" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1" >ID:&nbsp&nbsp&nbsp&nbsp</span>
+                            <input type="text" class="form-control" name="txtIdPartido" aria-describedby="basic-addon1" readonly>
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -120,12 +120,17 @@
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <div class="btn-group">
-                                <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
-                                <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
-                                <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
-                                <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
-                            </div>
+                            <center>
+                                <div class="btn-group">
+                                    <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
+                                    <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
+                                    <button type="submit" name="btnModificar" class="btn btn-default">Modificar solo nombre</button>
+                                    <button type="submit" name="btnModificar2" class="btn btn-default">Modificar todo</button>
+                                    <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
+                                </div>
+                            </center>
+                            <br>
+                            <sub>*Si no selecciona una imagen y presiona modificar todo y tenia una imagen en la BD está se borrara.</sub>
                         </div>
                     </form>
                     </center>
@@ -135,9 +140,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
+                                <th>ID partidopolitico</th>
+                                <th>Nombre de partido político</th>
                                 <th>Bandera</th>
+                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,7 +154,13 @@
                             <tr>
                                 <td><%=par.getIdPartido()%></td>
                                 <td><%=par.getNombre()%></td>
-                                <td>imagen</td>
+                                <td>
+                                <% if(par.getBase64Image()!=null){ %>
+                                    <img src = "data: image / jpg; base64, <%= par.getBase64Image() %>" alt="No contiene imagen" height="100px" width="200px"/>
+                                <% }else{ %>
+                                    No contiene imagen
+                                <% } %>
+                                </td>
                                 <td><a href="javascript:cargar(<%= par.getIdPartido()%>, '<%= par.getNombre()%>')">Seleccionar</a></td>
                             </tr>
                             <%

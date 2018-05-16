@@ -15,8 +15,7 @@ public class PartidoPolitico
 {
     private int idPartido;
     private String nombre;
-    InputStream bandera;
-    private byte[] image;  
+    InputStream bandera; 
     private String base64Image;
 
     public PartidoPolitico() {
@@ -43,11 +42,6 @@ public class PartidoPolitico
 
     public void setBandera(InputStream bandera) {
         this.bandera = bandera;
-    }
-    
-    @Column(name = "image")
-    public byte[] getImage() {
-        return this.image;
     }
     
     public String getBase64Image() {
