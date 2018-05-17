@@ -6,7 +6,9 @@
 
 package gov.controlador;
 
-import gov.modelo.DaoPartidoPolitico;
+import gov.modelo.Ciudadano;
+import gov.modelo.DaoDiputado;
+import gov.modelo.Diputado;
 import gov.modelo.PartidoPolitico;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,18 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 /**
- * Nombre de la clase: ProcesarPartido
+ * Nombre de la clase: ProcesarDiputado
  * Versión: 1.0
- * Fecha: 15-may-2018
+ * Fecha: 16-may-2018
  * Autor: Ulises
  */
-@WebServlet("/uploadServlet") 
-/* marca este servlet para que el contenedor de servlets lo cargue al 
-inicio y lo asigne al patrón de URL / uploadServlet .*/
+@WebServlet("/procesarDip")
 @MultipartConfig(maxFileSize = 16177215)
-/*indica que este servlet gestionará la solicitud de 
-varias partes. Restringimos el tamaño máximo del archivo de carga de hasta 16 MB.*/
-public class ProcesarPartido extends HttpServlet {
+public class ProcesarDiputado extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -40,40 +38,44 @@ public class ProcesarPartido extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String msj=null;
-        DaoPartidoPolitico dao = new DaoPartidoPolitico();
+        DaoDiputado dao = new DaoDiputado();
+        Diputado dip = new Diputado();
+        Ciudadano ciu = new Ciudadano();
         PartidoPolitico pp = new PartidoPolitico();
         try {
-            pp.setNombre(request.getParameter("txtNombre"));
+            ciu.setDui(request.getParameter("txtDUI"));
+            pp.setIdPartido(Integer.parseInt(request.getParameter("cmbPartido")));
+            dip.setCiu(ciu);
+            dip.setPartidoPolitico(pp);
             Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
             if (filePart != null){
-                pp.setBandera(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
+                dip.setImagen(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
             }
             if(request.getParameter("btnRegistrar")!=null){
-                dao.insertar(pp);
-                msj="Partido insertado";
+                dao.insertar(dip);
+                msj="Diputado insertado";
             }else if(request.getParameter("btnModificar")!=null){
-                pp.setIdPartido(Integer.parseInt(request.getParameter("txtIdPartido")));
-                dao.modificar1(pp);
-                msj="Partido modificado";
+                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
+                dao.modificar(dip);
+                msj="Diputado modificado";
             }else if(request.getParameter("btnEliminar")!=null){
-                pp.setIdPartido(Integer.parseInt(request.getParameter("txtIdPartido")));
-                dao.eliminar(pp);
-                msj="Partido eliminado";
+                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
+                dao.eliminar(dip);
+                msj="Diputado eliminado";
             }else if(request.getParameter("btnModificar2")!=null){
-                pp.setIdPartido(Integer.parseInt(request.getParameter("txtIdPartido")));
-                dao.modificar2(pp);
+                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
+                dao.modificar2(dip);
             }
         } catch (Exception e) {
             msj= e.toString();
         }finally{
             request.getSession().setAttribute("msj", msj);
-            response.sendRedirect("Administrador/partidoPolitico.jsp");
+            response.sendRedirect("Administrador/diputado.jsp");
         }
     } 
 

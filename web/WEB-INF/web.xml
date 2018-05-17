@@ -28,6 +28,10 @@
         <servlet-name>ProcesarPartido</servlet-name>
         <servlet-class>gov.controlador.ProcesarPartido</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarDiputado</servlet-name>
+        <servlet-class>gov.controlador.ProcesarDiputado</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcesarCiudadano</servlet-name>
         <url-pattern>/procesarCiudadano</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ProcesarPartido</servlet-name>
         <url-pattern>/procesarPartido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarDiputado</servlet-name>
+        <url-pattern>/procesarDiputado</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

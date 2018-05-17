@@ -1,6 +1,7 @@
 package gov.modelo;
 
 import java.awt.Image;
+import java.io.InputStream;
 import java.sql.Blob;
 
 /**
@@ -13,16 +14,18 @@ public class Diputado {
     private int idDiputado;
     private Ciudadano ciu;
     private PartidoPolitico partidoPolitico;
-    private Blob imagen;
-
+    private InputStream imagen;
+    private String base64Image;
+    
     public Diputado() {
     }
 
-    public Diputado(int idDiputado, Ciudadano ciu, PartidoPolitico partidoPolitico, Blob imagen) {
+    public Diputado(int idDiputado, Ciudadano ciu, PartidoPolitico partidoPolitico, InputStream imagen, String base64Image) {
         this.idDiputado = idDiputado;
         this.ciu = ciu;
         this.partidoPolitico = partidoPolitico;
         this.imagen = imagen;
+        this.base64Image = base64Image;
     }
 
     public int getIdDiputado() {
@@ -49,12 +52,20 @@ public class Diputado {
         this.partidoPolitico = partidoPolitico;
     }
 
-    public Blob getImagen() {
+    public InputStream getImagen() {
         return imagen;
     }
 
-    public void setImagen(Blob imagen) {
+    public void setImagen(InputStream imagen) {
         this.imagen = imagen;
     }
-         
+
+    public String getBase64Image() {
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
+
 }

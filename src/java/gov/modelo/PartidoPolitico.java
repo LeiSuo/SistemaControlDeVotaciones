@@ -15,7 +15,7 @@ public class PartidoPolitico
 {
     private int idPartido;
     private String nombre;
-    InputStream bandera; 
+    private InputStream bandera; 
     private String base64Image;
 
     public PartidoPolitico() {
