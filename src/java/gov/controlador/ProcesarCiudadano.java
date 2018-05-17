@@ -1,13 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package gov.controlador;
 
+import gov.modelo.Ciudadano;
+import gov.modelo.DaoCiudadano;
+import gov.modelo.Municipio;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *  Nombre del documento: ProcesarCiudadano
  *  Versión             : 1.0
  *  Fecha de creación   : 08-may-2018  
- *  autor               : Ulises
+ *  autor               : Gerson Baires
  */
 public class ProcesarCiudadano extends HttpServlet {
    
@@ -31,18 +32,43 @@ public class ProcesarCiudadano extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProcesarCiudadano</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProcesarCiudadano at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        DaoCiudadano daoCiuda = new DaoCiudadano();
+        String msj = null;
+        Ciudadano ciuda = new Ciudadano();
+        Municipio muni = new Municipio();
+        try 
+        {
+            ciuda.setDui(request.getParameter("txtDui"));
+            ciuda.setNombre(request.getParameter("txtNombre"));
+            ciuda.setApellidos(request.getParameter("txtApellidos"));
+            muni.setIdMunicipio(Integer.parseInt(request.getParameter("cmbMunicipio")));
+            ciuda.setMunicipio(muni);
+            ciuda.setGenero(request.getParameter("rdbGenero"));
+            ciuda.setEdad(Integer.parseInt(request.getParameter("txtEdad")));
+            ciuda.setFechaExpiracion(request.getParameter("txtFechaCad"));
+            if(request.getParameter("btnRegistrar")!=null)
+            {
+                daoCiuda.insertarCiudadano(ciuda);
+                msj="Ciudadano Registrado con Exito";
+            }
+            if(request.getParameter("btnModificar")!=null)
+            {
+                daoCiuda.modificarCiudadano(ciuda);
+                msj="Ciudadano Modificado con Exito";
+            }
+            if(request.getParameter("btnEliminar")!=null)
+            {
+                daoCiuda.eliminarCiudadano(ciuda);
+                msj="Ciudadano Eliminado con Exito";
+            }
+        } 
+        catch (Exception e) 
+        {
+            msj = e.toString();
         }
+        request.getSession().setAttribute("msj", msj);
+        response.sendRedirect("Administrador/ciudadano.jsp");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

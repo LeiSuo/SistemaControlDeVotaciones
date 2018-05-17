@@ -87,4 +87,27 @@ public class DaoMunicipio extends Conexion {
             this.desconectar();
         }
     }
+    
+     public List<Departamento> mostrarDepartamento() throws Exception{
+        ResultSet rs;
+        List<Departamento> lst = new ArrayList<>();
+        String sql = "select * from departamento";
+        try {
+            this.conectar();
+            PreparedStatement pst = this.getCon().prepareStatement(sql);
+            rs = pst.executeQuery();
+            
+            while (rs.next()) {                
+                Departamento de = new Departamento();
+                de.setIdDepartamento(rs.getInt("idDepartamento"));
+                de.setNombre(rs.getString("nombre"));
+                lst.add(de);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            this.desconectar();
+        }
+        return lst;
+    }
 }
