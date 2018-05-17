@@ -71,7 +71,7 @@ public class DaoCiudadano extends Conexion{
             this.conectar();
             String sql = "update ciudadano set nombres = ?,"
                     + "apellidos = ?, idMunicipio = ?, genero = ?,"
-                    + "edad = ?, where dui = ?";
+                    + "edad = ?,fechaExpiracion=? where dui = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);            
             pst.setString(1, ciu.getNombre());
             pst.setString(2, ciu.getApellidos());

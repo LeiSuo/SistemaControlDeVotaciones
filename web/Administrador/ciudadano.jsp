@@ -11,12 +11,34 @@
 <%@page import="gov.modelo.DaoMunicipio"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true" %>
-
+<%
+    HttpSession sesion=request.getSession();
+    if(sesion.getAttribute("nivel")==null){
+        response.sendRedirect("../loginAdmin.jsp");
+    }else{
+        String nivel = sesion.getAttribute("nivel").toString();
+        if(!nivel.equals("1")){
+            response.sendRedirect("../loginAdmin.jsp");
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script>
+            function cargar(dui,nom,ape,municipio,sex,age,date)
+            {
+                document.FrmCiudadano.txtDui.value=dui;
+                document.FrmCiudadano.txtNombre.value=nom;
+                document.FrmCiudadano.txtApellidos.value=ape;
+                document.FrmCiudadano.cmbMunicipio.value=municipio;
+                document.FrmCiudadano.rdbGenero.value=sex;
+                document.FrmCiudadano.txtEdad.value=age;
+                document.FrmCiudadano.txtFechaCad.value=date;
+            }
+        </script>
         <title>CRUD ciudadano</title>
           <%
         if (request.getSession().getAttribute("msj") != null) {
@@ -87,7 +109,7 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="index.html" method="post">
+                        <form class="" action="../procesarCiudadano" method="post" name="FrmCiudadano">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">DUI:&nbsp&nbsp&nbsp&nbsp</span>
                             <input type="text" class="form-control" name="txtDui" aria-describedby="basic-addon1">
@@ -133,8 +155,8 @@
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">fecha caducidad(DUI):</span>
-                            <input type="date" class="form-control" name="txtFechaCad" aria-describedby="basic-addon1">
+                            <span class="input-group-addon" id="basic-addon1">Fecha caducidad(DUI):</span>
+                            <input type="date" autocomplete="" class="form-control" name="txtFechaCad" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -166,8 +188,7 @@
                         <%
                             List<Ciudadano>lstciuda = daoCiu.mostrarCiudadano();
                             for(Ciudadano ciuda:lstciuda)
-                            {    
-                            
+                            {     
                         %>
                         <tbody>
                             <tr>
@@ -179,22 +200,17 @@
                                 <td><%=ciuda.getFechaExpiracion()%></td>
                                 <td><%=ciuda.getDepartamento().getNombre()%></td>
                                 <td><%=ciuda.getMunicipio().getNombre()%></td>
-                                <td><a href="javascript:cargar
-                                       (<%=ciuda.getDui()%>,
+                                <td><a href="JavaScript:cargar('<%=ciuda.getDui()%>',
                                        '<%=ciuda.getNombre()%>',
                                        '<%=ciuda.getApellidos()%>',
+                                       <%=ciuda.getMunicipio().getIdMunicipio()%>,
                                        '<%=ciuda.getGenero()%>',
-                                       '<%=ciuda.getEdad()%>',
-                                       '<%=ciuda.getFechaExpiracion()%>',
-                                       '<%=ciuda.getMunicipio().getIdMunicipio()%>')">Seleccionar</a></td>
+                                       <%=ciuda.getEdad()%>,
+                                       '<%=ciuda.getFechaExpiracion()%>')">Seleccionar</a></td>
                             </tr>
                             <%   
                                 }
                             %>
-                            
-        
-
-
                         </tbody>
                     </table>
                 </div>

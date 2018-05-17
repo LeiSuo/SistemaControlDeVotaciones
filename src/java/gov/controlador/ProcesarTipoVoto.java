@@ -31,7 +31,6 @@ public class ProcesarTipoVoto extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
          response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        RequestDispatcher rd = null;
         DaoTipoVoto daoTipo = new DaoTipoVoto();
         String msj = null;
         TipoVoto TV = new TipoVoto();
