@@ -7,29 +7,24 @@
 package gov.controlador;
 
 import gov.modelo.Ciudadano;
-import gov.modelo.DaoDiputado;
-import gov.modelo.Diputado;
-import gov.modelo.PartidoPolitico;
+import gov.modelo.DaoVotante;
+import gov.modelo.Votante;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 /**
- * Nombre de la clase: ProcesarDiputado
+ * Nombre de la clase: ProcesarVotante
  * Versión: 1.0
- * Fecha: 16-may-2018
+ * Fecha: 20-may-2018
  * Autor: Ulises
  */
-@WebServlet("/procesarDip")
-@MultipartConfig(maxFileSize = 16177215)
-public class ProcesarDiputado extends HttpServlet {
+
+public class ProcesarVotante extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,45 +37,42 @@ public class ProcesarDiputado extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String msj=null;
-        DaoDiputado dao = new DaoDiputado();
-        Diputado dip = new Diputado();
+        HttpSession sesion=request.getSession();
+        String nivel = sesion.getAttribute("nivel").toString();
+        String msj = null;
+        DaoVotante dao = new DaoVotante();
+        Votante vot = new Votante();
         Ciudadano ciu = new Ciudadano();
-        PartidoPolitico pp = new PartidoPolitico();
         try {
-            ciu.setDui(request.getParameter("txtDUI"));
-            pp.setIdPartido(Integer.parseInt(request.getParameter("cmbPartido")));
-            dip.setCiu(ciu);
-            dip.setPartidoPolitico(pp);
-            Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
-            if (filePart != null){
-                dip.setImagen(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
-            }
+            ciu.setDui(request.getParameter("txtDui"));
+            vot.setCiudadano(ciu);
+            vot.setEstado(request.getParameter("cmbEstado"));
             if(request.getParameter("btnRegistrar")!=null){
-                int val=dao.validar(dip);
+                vot.setPassword(request.getParameter("txtPassword"));
+                int val=dao.validar(vot);
                 if(val==1){
-                    msj="El diputado ya esta registrado";
+                    msj="El votante ya esta registrado";
                 }else{
-                    dao.insertar(dip);
-                    msj="Diputado insertado";
+                    dao.insertar(vot);
+                    msj="Votante insertado";
                 }
             }else if(request.getParameter("btnModificar")!=null){
-                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
-                dao.modificar(dip);
-                msj="Diputado modificado";
+                vot.setPassword(request.getParameter("txtPassword"));
+                dao.modificar(vot);
+                msj="Votante modificado";
             }else if(request.getParameter("btnEliminar")!=null){
-                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
-                dao.eliminar(dip);
-                msj="Diputado eliminado";
-            }else if(request.getParameter("btnModificar2")!=null){
-                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
-                dao.modificar2(dip);
+                dao.eliminar(vot);
+                msj="Votante eliminado";
             }
         } catch (Exception e) {
-            msj= e.toString();
+            msj=e.toString();
         }finally{
             request.getSession().setAttribute("msj", msj);
-            response.sendRedirect("Administrador/diputado.jsp");
+            if(nivel.equals("1")){
+                response.sendRedirect("Administrador/votante.jsp");
+            }else if(nivel.equals("2")){
+                response.sendRedirect("Inscriptor/votante.jsp");
+            }
         }
     } 
 

@@ -6,30 +6,23 @@
 
 package gov.controlador;
 
-import gov.modelo.Ciudadano;
-import gov.modelo.DaoDiputado;
-import gov.modelo.Diputado;
-import gov.modelo.PartidoPolitico;
+import gov.modelo.DaoUsuario;
+import gov.modelo.Usuario;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
- * Nombre de la clase: ProcesarDiputado
+ * Nombre de la clase: ProcesarUsuarios
  * Versión: 1.0
  * Fecha: 16-may-2018
  * Autor: Ulises
  */
-@WebServlet("/procesarDip")
-@MultipartConfig(maxFileSize = 16177215)
-public class ProcesarDiputado extends HttpServlet {
+
+public class ProcesarUsuarios extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,45 +35,38 @@ public class ProcesarDiputado extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String msj=null;
-        DaoDiputado dao = new DaoDiputado();
-        Diputado dip = new Diputado();
-        Ciudadano ciu = new Ciudadano();
-        PartidoPolitico pp = new PartidoPolitico();
-        try {
-            ciu.setDui(request.getParameter("txtDUI"));
-            pp.setIdPartido(Integer.parseInt(request.getParameter("cmbPartido")));
-            dip.setCiu(ciu);
-            dip.setPartidoPolitico(pp);
-            Part filePart = request.getPart("fichero"); //Obtener la parte del archivo cargado
-            if (filePart != null){
-                dip.setImagen(filePart.getInputStream());// Obtiene flujo de entrada del archivo de carga
+        DaoUsuario daoUs = new DaoUsuario();
+        String msj = null;
+        Usuario us = new Usuario();
+        try 
+        {
+            us.setNombre(request.getParameter("txtNombre"));
+            us.setUsuario(request.getParameter("txtUsuario"));
+            us.setPassword(request.getParameter("txtPassword"));
+            us.setNivel(Integer.parseInt(request.getParameter("cmbNivel")));
+            if(request.getParameter("btnModificar")!=null){
+                    us.setIdUsuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
+                    daoUs.modificar(us);
+                    msj="usuario modificado Correctamente";
             }
-            if(request.getParameter("btnRegistrar")!=null){
-                int val=dao.validar(dip);
-                if(val==1){
-                    msj="El diputado ya esta registrado";
-                }else{
-                    dao.insertar(dip);
-                    msj="Diputado insertado";
-                }
-            }else if(request.getParameter("btnModificar")!=null){
-                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
-                dao.modificar(dip);
-                msj="Diputado modificado";
-            }else if(request.getParameter("btnEliminar")!=null){
-                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
-                dao.eliminar(dip);
-                msj="Diputado eliminado";
-            }else if(request.getParameter("btnModificar2")!=null){
-                dip.setIdDiputado(Integer.parseInt(request.getParameter("txtIdDiputado")));
-                dao.modificar2(dip);
+            if(request.getParameter("btnEliminar")!=null){
+                us.setIdUsuario(Integer.parseInt(request.getParameter("txtIdUsuario")));
+                daoUs.eliminar(us);
+                msj="usuario eliminado Correctamente";
             }
-        } catch (Exception e) {
-            msj= e.toString();
-        }finally{
+            if(request.getParameter("btnRegistrar1")!=null){
+                daoUs.insertar(us);
+                msj="usuario insertado Correctamente";                
+            }
+        } 
+        catch (Exception e) 
+        {
+            msj=e.toString();
+        }
+        finally
+        {
             request.getSession().setAttribute("msj", msj);
-            response.sendRedirect("Administrador/diputado.jsp");
+            response.sendRedirect("Administrador/usuario.jsp");
         }
     } 
 

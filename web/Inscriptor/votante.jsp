@@ -14,7 +14,7 @@
         response.sendRedirect("../loginAdmin.jsp");
     }else{
         String nivel = sesion.getAttribute("nivel").toString();
-        if(!nivel.equals("1")){
+        if(!nivel.equals("2")){
             response.sendRedirect("../loginAdmin.jsp");
         }
     }
@@ -35,22 +35,12 @@
             request.getSession().setAttribute("msj",null);
             }
         %>
-        <script>
-            function cargar(dui, password , estado){
-                document.frmVotante.txtDui.value=dui;
-                document.frmVotante.txtPassword.value=password;
-                document.frmVotante.cmbEstado.value = estado;
-                $('body,html').animate({
-                    scrollTop:'0px'
-                });
-            }
-        </script>
     </head>
     <%
         DaoVotante daoVot = new DaoVotante();
     %>
     <body>
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -59,7 +49,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="administrador.jsp">Administrador</a>
+                    <a class="navbar-brand" href="inscriptor.jsp">Inscriptor</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -71,22 +61,6 @@
                                 <li><a href="#">Votante</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">País<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="departamento.jsp">Departamento</a></li>
-                                <li><a href="municipio.jsp">Municipio</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Política<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="diputado.jsp">Diputado</a></li>
-                                <li><a href="partidoPolitico.jsp">Partido politico</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="tipoVoto.jsp">Tipo de voto</a></li>
-                        <li><a href="usuario.jsp">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="../loginAdmin.jsp?cerrar=true"> Cerrar sesion</a></li>
@@ -118,7 +92,6 @@
                             <label for="cmbEstado">Estado:</label><br>
                             <select name="cmbEstado" class="form-control" id="cmbEstado" aria-describedby="basic-addon1">
                                <option value="Activo">Activo</option>
-                               <option value="Inactivo">Inactivo</option>
                             </select>
                         </div>
                         <br>
@@ -126,8 +99,6 @@
                             <center>
                             <div class="btn-group">
                                 <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
-                                <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
-                                <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
                                 <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
                             </div>
                             </center>
@@ -143,12 +114,10 @@
                                 <th>DUI</th>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Contraseña</th>
                                 <th>Genero</th>
                                 <th>Municipio</th>
                                 <th>Departamento</th>
                                 <th>Estado</th>
-                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -160,12 +129,10 @@
                                 <td><%= vot.getCiudadano().getDui() %></td>
                                 <td><%= vot.getCiudadano().getNombre() %></td>
                                 <td><%= vot.getCiudadano().getApellidos() %></td>
-                                <td><%= vot.getPassword() %></td>
                                 <td><%= vot.getCiudadano().getGenero() %></td>
                                 <td><%= vot.getMunicipio().getNombre() %></td>
                                 <td><%= vot.getDepartamento().getNombre() %></td>
                                 <td><%= vot.getEstado() %></td>
-                                <td><a href="javascript:cargar(<%= vot.getCiudadano().getDui() %>,'<%= vot.getPassword() %>','<%= vot.getEstado() %>')">Seleccionar</a></td>
                             </tr>
                             <%
                                 }

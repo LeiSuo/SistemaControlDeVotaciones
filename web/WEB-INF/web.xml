@@ -32,6 +32,14 @@
         <servlet-name>ProcesarDiputado</servlet-name>
         <servlet-class>gov.controlador.ProcesarDiputado</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarUsuarios</servlet-name>
+        <servlet-class>gov.controlador.ProcesarUsuarios</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProcesarVotante</servlet-name>
+        <servlet-class>gov.controlador.ProcesarVotante</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcesarCiudadano</servlet-name>
         <url-pattern>/procesarCiudadano</url-pattern>
@@ -63,6 +71,14 @@
     <servlet-mapping>
         <servlet-name>ProcesarDiputado</servlet-name>
         <url-pattern>/procesarDiputado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarUsuarios</servlet-name>
+        <url-pattern>/procesarUsuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarVotante</servlet-name>
+        <url-pattern>/procesarVotante</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

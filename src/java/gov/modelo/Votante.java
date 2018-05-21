@@ -12,16 +12,19 @@ package gov.modelo;
 public class Votante 
 {
     private Ciudadano ciudadano;
-    private String clave;
-    private String activo;
-
+    private String password;
+    private String estado;
+    private Departamento departamento;
+    private Municipio municipio;
     public Votante() {
     }
 
-    public Votante(Ciudadano ciudadano, String clave, String activo) {
+    public Votante(Ciudadano ciudadano, String password, String estado, Departamento departamento, Municipio municipio) {
         this.ciudadano = ciudadano;
-        this.clave = clave;
-        this.activo = activo;
+        this.password = password;
+        this.estado = estado;
+        this.departamento = departamento;
+        this.municipio = municipio;
     }
 
     public Ciudadano getCiudadano() {
@@ -32,22 +35,37 @@ public class Votante
         this.ciudadano = ciudadano;
     }
 
-   
-
-    public String getClave() {
-        return clave;
+    public String getPassword() {
+        return password;
     }
 
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getActivo() {
-        return activo;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setActivo(String activo) {
-        this.activo = activo;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
+    }
+    
     
 }

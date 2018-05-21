@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *  Nombre del documento: ProcesarCiudadano
@@ -33,6 +34,8 @@ public class ProcesarCiudadano extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession sesion=request.getSession();
+        String nivel = sesion.getAttribute("nivel").toString();
         DaoCiudadano daoCiuda = new DaoCiudadano();
         String msj = null;
         Ciudadano ciuda = new Ciudadano();
@@ -66,9 +69,14 @@ public class ProcesarCiudadano extends HttpServlet {
         catch (Exception e) 
         {
             msj = e.toString();
+        }finally{
+            request.getSession().setAttribute("msj", msj);
+            if(nivel.equals("1")){
+                response.sendRedirect("Administrador/ciudadano.jsp");
+            }else if(nivel.equals("2")){
+                response.sendRedirect("Inscriptor/ciudadano.jsp");
+            }
         }
-        request.getSession().setAttribute("msj", msj);
-        response.sendRedirect("Administrador/ciudadano.jsp");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

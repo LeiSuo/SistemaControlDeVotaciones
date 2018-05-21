@@ -114,12 +114,14 @@
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
+                            <center>
                             <div class="btn-group">
                                 <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
                                 <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
                                 <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
                                 <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
                             </div>
+                            </center>
                         </div>
                     </form>
                     </center>

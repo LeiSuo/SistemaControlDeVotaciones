@@ -17,7 +17,7 @@
         response.sendRedirect("../loginAdmin.jsp");
     }else{
         String nivel = sesion.getAttribute("nivel").toString();
-        if(!nivel.equals("1")){
+        if(!nivel.equals("2")){
             response.sendRedirect("../loginAdmin.jsp");
         }
     }
@@ -65,34 +65,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="administrador.jsp">Administrador</a>
+                    <a class="navbar-brand" href="inscriptor.jsp">Inscriptor</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Poblacion<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Ciudadano</a></li>
+                                <li><a href="#.jsp">Ciudadano</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="votante.jsp">Votante</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">País<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="departamento.jsp">Departamento</a></li>
-                                <li><a href="municipio.jsp">Municipio</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Política<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="diputado.jsp">Diputado</a></li>
-                                <li><a href="partidoPolitico.jsp">Partido politico</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="tipoVoto.jsp">Tipo de voto</a></li>
-                        <li><a href="usuario.jsp">Usuarios</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="../loginAdmin.jsp?cerrar=true"> Cerrar sesion</a></li>
@@ -160,12 +144,12 @@
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
+                            <center>
                             <div class="btn-group">
                                 <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
-                                <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
-                                <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
                                 <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
                             </div>
+                            </center>
                         </div>
                     </form>
                     </center>
@@ -200,13 +184,6 @@
                                 <td><%=ciuda.getFechaExpiracion()%></td>
                                 <td><%=ciuda.getDepartamento().getNombre()%></td>
                                 <td><%=ciuda.getMunicipio().getNombre()%></td>
-                                <td><a href="JavaScript:cargar('<%=ciuda.getDui()%>',
-                                       '<%=ciuda.getNombre()%>',
-                                       '<%=ciuda.getApellidos()%>',
-                                       <%=ciuda.getMunicipio().getIdMunicipio()%>,
-                                       '<%=ciuda.getGenero()%>',
-                                       <%=ciuda.getEdad()%>,
-                                       '<%=ciuda.getFechaExpiracion()%>')">Seleccionar</a></td>
                             </tr>
                             <%   
                                 }

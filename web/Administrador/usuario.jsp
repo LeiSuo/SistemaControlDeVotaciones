@@ -4,14 +4,53 @@
     Autor                  : Ulises
 --%>
 
+<%@page import="gov.modelo.Usuario"%>
+<%@page import="java.util.List"%>
+<%@page import="gov.modelo.DaoUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesion = request.getSession();
+    if(sesion.getAttribute("nivel")==null){
+        response.sendRedirect("../loginAdmin.jsp");
+    }else{
+        String nivel = sesion.getAttribute("nivel").toString();
+        if (!nivel.equals("1")) {
+            response.sendRedirect("../loginLocal.jsp");
+        }
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <title>JSP Page</title>
+        <title>CRUD usuarios</title>
+        <%
+        if (request.getSession().getAttribute("msj") != null) {
+        %>
+        <script>
+            alert('<%= request.getSession().getAttribute("msj") %>');
+        </script>
+        <%
+            request.getSession().setAttribute("msj",null);
+            }
+        %>
+        <script>
+            function cargar(id, nombre, usuario, pass,nivel){
+                document.frmUsuario.txtIdUsuario.value=id;
+                document.frmUsuario.txtNombre.value=nombre;
+                document.frmUsuario.txtUsuario.value=usuario;
+                document.frmUsuario.txtPassword.value=pass;
+                document.frmUsuario.cmbNivel.value=nivel;
+                $('body,html').animate({
+                    scrollTop:'0px'
+                });
+            }
+        </script>
     </head>
+    <%
+        DaoUsuario daoUs = new DaoUsuario();
+    %>
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -66,10 +105,10 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="index.html" method="post">
+                    <form class="" name="frmUsuario" action="../procesarUsuarios" method="post">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtIdUsuario" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="txtIdUsuario" aria-describedby="basic-addon1" readonly="">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
@@ -84,21 +123,26 @@
                         <br>
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">Contraseña: </span>
-                            <input type="text" class="form-control" name="txtContraseña" aria-describedby="basic-addon1">
+                            <input type="text" class="form-control" name="txtPassword" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">Nivel: </span>
-                            <input type="text" class="form-control" name="txtNivel" aria-describedby="basic-addon1">
+                            <label for="cmbNivel">Nivel:</label><br>
+                            <select name="cmbNivel" class="form-control" id="cmbNivel" aria-describedby="basic-addon1">
+                               <option value="1">Administrador</option>
+                               <option value="2">Inscriptor</option>
+                            </select>
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
+                            <center>
                             <div class="btn-group">
                                 <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
                                 <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
                                 <button type="submit" name="btnModificar" class="btn btn-default">Modificar</button>
-                                <button type="submit" name="btnRegistrar" class="btn btn-default">Registrar</button>
+                                <button type="submit" name="btnRegistrar1" class="btn btn-default">Registrar</button>
                             </div>
+                            </center>
                         </div>
                     </form>
                     </center>
@@ -113,16 +157,29 @@
                                 <th>Nombre usuario</th>
                                 <th>contraseña</th>
                                 <th>Nivel</th>
+                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <%
+                               List<Usuario> lst = daoUs.mostrar();
+                               for(Usuario us:lst){
+                            %>
                             <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
+                                <td><%= us.getIdUsuario() %></td>
+                                <td><%= us.getNombre() %></td>
+                                <td><%= us.getUsuario() %></td>
+                                <td><%= us.getPassword() %></td>
+                                <%if(us.getNivel()==1){%>
+                                <td>Administrador</td>
+                                <%}else{%>
+                                <td>Inscriptor</td>
+                                <%}%>
+                                <td><a href="javascript:cargar(<%= us.getIdUsuario()%>, '<%= us.getNombre() %>','<%= us.getUsuario()%>','<%= us.getPassword() %>',<%= us.getNivel() %>)">Seleccionar</a></td>
                             </tr>
+                            <%
+                                }
+                            %>
                         </tbody>
                     </table>
                 </div>

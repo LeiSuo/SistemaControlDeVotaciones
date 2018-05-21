@@ -129,4 +129,30 @@ public class DaoDiputado extends Conexion {
             this.desconectar();
         }
     }    
+    
+    public int  validar(Diputado di) throws Exception{
+        ResultSet res;
+        int val = 0;
+        String sql = "SELECT idDiputado FROM diputado where dui = ?";
+        try {
+            this.conectar();
+            String var = null;
+            PreparedStatement pst = this.getCon().prepareCall(sql);
+            pst.setString(1, di.getCiu().getDui());
+            res = pst.executeQuery();
+            while(res.next()){
+                var = res.getString("idDiputado");
+            }
+            if (var!=null) {
+                val = 1;
+            }else{
+                val = 0;
+            }
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.desconectar();
+        }
+        return val;
+    }
 }

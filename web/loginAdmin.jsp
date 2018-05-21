@@ -1,7 +1,7 @@
 <%--
     Document   : loginAdmin
     Created on : 08-may-2018, 16:53:32
-    Author     : SCOR64
+    Author     : Ulises
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -33,6 +33,10 @@
             sesion.setAttribute("nombre",request.getAttribute("nombre"));
             sesion.setAttribute("nivel", request.getAttribute("nivel"));
             response.sendRedirect("Administrador/administrador.jsp");
+        }else if(nivel==2){
+            sesion.setAttribute("nombre", request.getAttribute("nombre"));
+            sesion.setAttribute("nivel", request.getAttribute("nivel"));
+            response.sendRedirect("Inscriptor/inscriptor.jsp");
         }
     }
     if(request.getParameter("cerrar")!=null){

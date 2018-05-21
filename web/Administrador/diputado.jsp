@@ -37,8 +37,11 @@
             request.getSession().setAttribute("msj",null);
             }
         %>
-        <script>
-            function cargar(id, dui, idPar){
+        <script  >
+            function cargar(id, dui , idPar){
+                document.frmDiputado.txtIdDiputado.value=id;
+                document.frmDiputado.txtDUI.value=dui;
+                document.frmDiputado.cmbPartido.value=idPar;
                 $('body,html').animate({
                     scrollTop:'0px'
                 });
@@ -104,7 +107,7 @@
                 </div>
                 <div class="panel-body">
                     <center>
-                    <form class="" action="../procesarDiputado" method="post" enctype="multipart/form-data">
+                    <form class="" name="frmDiputado"  action="../procesarDiputado" method="post" enctype="multipart/form-data">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">ID:&nbsp&nbsp&nbsp&nbsp</span>
                             <input type="text" class="form-control" name="txtIdDiputado" aria-describedby="basic-addon1" readonly>
@@ -179,7 +182,7 @@
                                 <% }else{ %>
                                     No contiene imagen
                                 <% } %></td>
-                                <td><a href="javascript:cargar(<%= dip.getIdDiputado()%>, '<%= dip.getCiu().getDui() %>',<%= dip.getPartidoPolitico().getIdPartido() %>)">Seleccionar</a></td>
+                                <td><a href="javascript:cargar(<%= dip.getIdDiputado()%>, <%= dip.getCiu().getDui() %>,<%= dip.getPartidoPolitico().getIdPartido() %>)">Seleccionar</a></td>
                             </tr>
                             <%}%>
                         </tbody>
