@@ -8,6 +8,7 @@
 <%@page import="java.util.List"%>
 <%@page import="gov.modelo.DaoVotante"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true" %>
 <%
     HttpSession sesion=request.getSession();
     if(sesion.getAttribute("nivel")==null){

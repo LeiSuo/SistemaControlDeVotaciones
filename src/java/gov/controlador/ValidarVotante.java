@@ -11,21 +11,23 @@ import gov.modelo.DaoVotante;
 import gov.modelo.Votante;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Nombre de la clase: ProcesarVotante
+ * Nombre de la clase: ValidarVotante
  * Versión: 1.0
- * Fecha: 20-may-2018
+ * Fecha: 22-may-2018
  * Autor: Ulises
  */
 
-public class ProcesarVotante extends HttpServlet {
-   
+public class ValidarVotante extends HttpServlet {
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -34,45 +36,49 @@ public class ProcesarVotante extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        HttpSession sesion=request.getSession();
-        String nivel = sesion.getAttribute("nivel").toString();
-        String msj = null;
-        DaoVotante dao = new DaoVotante();
-        Votante vot = new Votante();
+        Votante vot=new Votante();
         Ciudadano ciu = new Ciudadano();
+        DaoVotante dao = new DaoVotante();
+        int estado=0;
+        String msj=null;
+        List<Votante> lst = new ArrayList<>();
         try {
-            ciu.setDui(request.getParameter("txtDui"));
+            if(request.getParameter("btnIngresar")!=null){
+            ciu.setDui(request.getParameter("txtDUI"));
+            vot.setPassword(request.getParameter("txtPassword"));
             vot.setCiudadano(ciu);
-            vot.setEstado(request.getParameter("cmbEstado"));
-            if(request.getParameter("btnRegistrar")!=null){
-                vot.setPassword(request.getParameter("txtPassword"));
-                int val=dao.validarRegistro(vot);
-                if(val==1){
-                    msj="El votante ya esta registrado";
+            estado = dao.validarRegistro(vot);
+            String nombre=null;
+            String apellidos=null;
+            String envio=null;
+            if(estado==0){ // si estado esta en 0 significa que ya ha ejercido el voto
+                msj = "El ciudadano ya ha ejercido su voto";
+            }else if(estado==1){
+                lst = dao.validarSesion(vot);
+                if(lst.isEmpty()){
+                    msj="Contraseña invalida";
                 }else{
-                    dao.insertar(vot);
-                    msj="Votante insertado";
+                     for(Votante vo:lst){
+                        nombre = vo.getCiudadano().getNombre();
+                        apellidos = vo.getCiudadano().getApellidos();
+                        envio = vo.getEstado();
+                    }
+                    request.getSession().setAttribute("nombres",nombre);
+                    request.getSession().setAttribute("apellidos",apellidos);
+                    request.getSession().setAttribute("estado", envio );
                 }
-            }else if(request.getParameter("btnModificar")!=null){
-                vot.setPassword(request.getParameter("txtPassword"));
-                dao.modificar(vot);
-                msj="Votante modificado";
-            }else if(request.getParameter("btnEliminar")!=null){
-                dao.eliminar(vot);
-                msj="Votante eliminado";
+            }else{
+                msj="El ciudadano no esta inscrito como votante para las elecciones";
             }
+        }
         } catch (Exception e) {
-            msj=e.toString();
+            throw e;
         }finally{
             request.getSession().setAttribute("msj", msj);
-            if(nivel.equals("1")){
-                response.sendRedirect("Administrador/votante.jsp");
-            }else if(nivel.equals("2")){
-                response.sendRedirect("Inscriptor/votante.jsp");
-            }
+            response.sendRedirect("login.jsp");
         }
     } 
 
@@ -87,7 +93,11 @@ public class ProcesarVotante extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ValidarVotante.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 
@@ -100,7 +110,11 @@ public class ProcesarVotante extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ValidarVotante.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 

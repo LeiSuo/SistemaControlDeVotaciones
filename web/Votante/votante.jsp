@@ -1,19 +1,18 @@
 <%-- 
-    Nombre del Document   : votante
-    Versión               : 1.0
-    Fecha de creación     : 08-may-2018, 20:37:36
-    Autor                 : ulises
+    Nombre del documento   : votante
+    fecha                  : 22-may-2018
+    Autor                  : Ulises
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
+<%@page session="true"%>
 <%
     HttpSession sesion=request.getSession();
-    if(sesion.getAttribute("nivel")==null){
-        response.sendRedirect("../index.jsp");
+    if(sesion.getAttribute("estado")==null){
+        response.sendRedirect("../login.jsp");
     }else{
-        String nivel = sesion.getAttribute("nivel").toString();
-        if(!nivel.equals("4")){
+        String estado = sesion.getAttribute("estado").toString();
+        if(!estado.equals("Activo")){
             response.sendRedirect("../login.jsp");
         }
     }
@@ -22,9 +21,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Instrucciones votante</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
     </body>
 </html>

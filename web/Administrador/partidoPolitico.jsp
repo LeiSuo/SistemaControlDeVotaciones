@@ -8,6 +8,7 @@
 <%@page import="gov.modelo.PartidoPolitico"%>
 <%@page import="gov.modelo.DaoPartidoPolitico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true" %>
 <%
     HttpSession sesion=request.getSession();
     if(sesion.getAttribute("nivel")==null){

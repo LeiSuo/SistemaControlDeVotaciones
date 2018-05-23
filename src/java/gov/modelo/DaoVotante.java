@@ -96,7 +96,7 @@ public class DaoVotante extends Conexion{
         }
     }
     
-    public int validar(Votante vot) throws Exception{
+    public int validarRegistro(Votante vot) throws Exception{
         ResultSet res;
         int val = 0;
         String sql = "SELECT estado FROM votante where dui = ?";
@@ -109,10 +109,14 @@ public class DaoVotante extends Conexion{
             while(res.next()){
                 var = res.getString("estado");
             }
-            if (var!=null) {
-                val = 1;
+            if (var!=null){  //esta inscrito
+                if(var.equals("Activo")){  //el ciudadano puede ejercer su voto
+                    val=1;
+                }else{
+                    val=0; //El ciudadano no puede ejercer su voto ya que lo ha ejercido anteriormente
+                }
             }else{
-                val = 0;
+                val = 2; //significa que no esta inscrito
             }
         } catch (Exception e) {
             throw e;
@@ -120,5 +124,33 @@ public class DaoVotante extends Conexion{
             this.desconectar();
         }
         return val;
+    }
+    
+    public List<Votante> validarSesion(Votante vot) throws Exception{
+        ResultSet res;
+        List<Votante> lst = new ArrayList<>();
+        String sql = "SELECT ciudadano.nombres, ciudadano.apellidos, votante.estado FROM ciudadano INNER JOIN votante ON ciudadano.dui = votante.dui WHERE votante.password=? AND votante.dui=?";
+        try {
+            this.conectar();
+            String var = null;
+            PreparedStatement pst = this.getCon().prepareCall(sql);
+            pst.setString(1, vot.getPassword());
+            pst.setString(2, vot.getCiudadano().getDui());
+            res = pst.executeQuery();
+            while(res.next()){
+                Ciudadano ciu = new Ciudadano();
+                ciu.setNombre(res.getString("nombres"));
+                ciu.setApellidos(res.getString("apellidos"));
+                Votante vo = new Votante();
+                vo.setCiudadano(ciu);
+                vo.setEstado(res.getString("estado"));
+                lst.add(vo);
+            }
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.desconectar();
+        }
+        return lst;
     }
 }
