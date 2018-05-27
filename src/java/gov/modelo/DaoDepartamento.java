@@ -21,7 +21,6 @@ public class DaoDepartamento extends Conexion{
             this.conectar();
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             rs = pst.executeQuery();
-            
             while (rs.next()) {                
                 Departamento de = new Departamento();
                 de.setIdDepartamento(rs.getInt("idDepartamento"));

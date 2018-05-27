@@ -1,0 +1,25 @@
+/* 
+    Created on : 23-may-2018, 15:53:06
+    Author     : Ulises Guzmán
+*/
+
+.tse-color {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    background-color: #005192;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 5px;
+}
+.u-full-width {
+    width: 100%;
+    box-sizing: border-box;
+}
+.tse-color:hover {
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+}

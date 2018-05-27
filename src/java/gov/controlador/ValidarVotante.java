@@ -51,9 +51,10 @@ public class ValidarVotante extends HttpServlet {
             vot.setPassword(request.getParameter("txtPassword"));
             vot.setCiudadano(ciu);
             estado = dao.validarRegistro(vot);
-            String nombre=null;
-            String apellidos=null;
-            String envio=null;
+            int idDep=0;
+            int idMun=0;
+            String dui = null;
+            String envio = null;
             if(estado==0){ // si estado esta en 0 significa que ya ha ejercido el voto
                 msj = "El ciudadano ya ha ejercido su voto";
             }else if(estado==1){
@@ -62,12 +63,14 @@ public class ValidarVotante extends HttpServlet {
                     msj="Contraseña invalida";
                 }else{
                      for(Votante vo:lst){
-                        nombre = vo.getCiudadano().getNombre();
-                        apellidos = vo.getCiudadano().getApellidos();
+                        idDep = vo.getCiudadano().getDepartamento().getIdDepartamento();
+                        idMun = vo.getCiudadano().getMunicipio().getIdMunicipio();
                         envio = vo.getEstado();
                     }
-                    request.getSession().setAttribute("nombres",nombre);
-                    request.getSession().setAttribute("apellidos",apellidos);
+                     dui = ciu.getDui();
+                    request.getSession().setAttribute("idDep",idDep);
+                    request.getSession().setAttribute("idMun",idMun);
+                    request.getSession().setAttribute("dui", dui);
                     request.getSession().setAttribute("estado", envio );
                 }
             }else{

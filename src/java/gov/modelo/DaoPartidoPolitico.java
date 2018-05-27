@@ -119,4 +119,48 @@ public class DaoPartidoPolitico extends Conexion{
             this.desconectar();
         }
     }
+    
+    public List<PartidoPolitico> mostrarPV(Votante vot) throws Exception{
+        ResultSet rs;
+        List<PartidoPolitico> lst = new ArrayList<>();
+        String sql = "SELECT pp.idPartido, pp.nombre, pp.bandera FROM partidopolitico as pp "
+                + "INNER JOIN diputado as dip ON dip.idPartido = pp.idPartido INNER JOIN "
+                + "ciudadano as ciu ON dip.dui = ciu.dui INNER JOIN municipio as mun ON "
+                + "ciu.idMunicipio = mun.idMunicipio WHERE mun.idDepartamento =?";
+        try {
+            this.conectar();
+            PreparedStatement pst = this.getCon().prepareStatement(sql);
+            pst.setInt(1, vot.getCiudadano().getDepartamento().getIdDepartamento());
+            rs = pst.executeQuery();
+            while (rs.next()) {                
+                PartidoPolitico pp = new PartidoPolitico();
+                pp.setIdPartido(rs.getInt("idPartido"));
+                pp.setNombre(rs.getString("nombre"));
+                Blob blob = rs.getBlob("bandera"); //recuperamos los datos binarios de la base de datos
+                if(blob !=null){
+                    //Conversion de binario a cadena base64
+                    InputStream inputStream = blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead = -1;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] imageBytes = outputStream.toByteArray();
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                    //Fin de conversion
+
+                    pp.setBase64Image(base64Image); //Guardamos la conversion en nuestro objeto
+                    inputStream.close();
+                    outputStream.close();
+                }
+                lst.add(pp);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally{
+            this.desconectar();
+        }
+        return lst;
+    }
 }

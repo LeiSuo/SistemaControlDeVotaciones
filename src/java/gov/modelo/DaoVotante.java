@@ -129,19 +129,23 @@ public class DaoVotante extends Conexion{
     public List<Votante> validarSesion(Votante vot) throws Exception{
         ResultSet res;
         List<Votante> lst = new ArrayList<>();
-        String sql = "SELECT ciudadano.nombres, ciudadano.apellidos, votante.estado FROM ciudadano INNER JOIN votante ON ciudadano.dui = votante.dui WHERE votante.password=? AND votante.dui=?";
+        String sql = "SELECT ciudadano.idMunicipio as idMun, municipio.idDepartamento as idDep, votante.estado FROM ciudadano INNER JOIN votante ON ciudadano.dui = votante.dui INNER JOIN municipio ON municipio.idMunicipio = ciudadano.idMunicipio WHERE votante.password=? AND votante.dui=? ";
         try {
             this.conectar();
-            String var = null;
             PreparedStatement pst = this.getCon().prepareCall(sql);
             pst.setString(1, vot.getPassword());
             pst.setString(2, vot.getCiudadano().getDui());
             res = pst.executeQuery();
             while(res.next()){
                 Ciudadano ciu = new Ciudadano();
-                ciu.setNombre(res.getString("nombres"));
-                ciu.setApellidos(res.getString("apellidos"));
                 Votante vo = new Votante();
+                vo.setCiudadano(ciu);
+                Departamento dep = new Departamento();
+                Municipio mun = new Municipio();
+                dep.setIdDepartamento(res.getInt("idDep"));
+                mun.setIdMunicipio(res.getInt("idMun"));
+                ciu.setDepartamento(dep);
+                ciu.setMunicipio(mun);
                 vo.setCiudadano(ciu);
                 vo.setEstado(res.getString("estado"));
                 lst.add(vo);

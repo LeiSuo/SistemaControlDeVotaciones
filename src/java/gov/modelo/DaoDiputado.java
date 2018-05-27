@@ -155,4 +155,52 @@ public class DaoDiputado extends Conexion {
         }
         return val;
     }
+    
+    public List<Diputado> mostrarDipEl() throws Exception{
+        ResultSet rs;
+        List<Diputado> lst = new ArrayList<>();
+        try {
+            this.conectar();
+            String sql = "select dip.idDiputado, dip.dui, dip.img, ciu.nombres as nomDip, ciu.apellidos apeDip, dip.idPartido, pp.bandera from diputado as dip INNER JOIN ciudadano as ciu on dip.dui = ciu.dui INNER JOIN partidopolitico as pp on dip.idPartido = pp.idPartido ";
+            PreparedStatement pst = this.getCon().prepareStatement(sql);
+            rs = pst.executeQuery();       
+            while (rs.next()) {                
+                PartidoPolitico pp = new PartidoPolitico();
+                Ciudadano ciu = new Ciudadano();
+                Diputado dip = new Diputado();
+                dip.setIdDiputado(rs.getInt("idDiputado"));
+                ciu.setDui(rs.getString("dui"));
+                ciu.setNombre(rs.getString("nomDip"));
+                ciu.setApellidos(rs.getString("apeDip"));
+                pp.setIdPartido(rs.getInt("idPartido"));
+                pp.setNombre(rs.getString("partido"));
+                dip.setCiu(ciu);
+                dip.setPartidoPolitico(pp);
+                Blob blob = rs.getBlob("img"); //recuperamos los datos binarios de la base de datos
+                if(blob !=null){
+                    //Conversion de binario a cadena base64
+                    InputStream inputStream = blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead = -1;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                    byte[] imageBytes = outputStream.toByteArray();
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                    //Fin de conversion
+
+                    dip.setBase64Image(base64Image); //Guardamos la conversion en nuestro objeto
+                    inputStream.close();
+                    outputStream.close();
+                }
+                lst.add(dip);
+            }
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.desconectar();
+        }
+        return lst;
+    }
 }
