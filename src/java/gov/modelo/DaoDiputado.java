@@ -156,26 +156,23 @@ public class DaoDiputado extends Conexion {
         return val;
     }
     
-    public List<Diputado> mostrarDipEl() throws Exception{
+    public List<Diputado> mostrarDipEl(Diputado dipu) throws Exception{
         ResultSet rs;
         List<Diputado> lst = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "select dip.idDiputado, dip.dui, dip.img, ciu.nombres as nomDip, ciu.apellidos apeDip, dip.idPartido, pp.bandera from diputado as dip INNER JOIN ciudadano as ciu on dip.dui = ciu.dui INNER JOIN partidopolitico as pp on dip.idPartido = pp.idPartido ";
+            String sql = "select dip.idDiputado, dip.img, ciu.nombres as nomDip, ciu.apellidos as apeDip from diputado as dip INNER JOIN ciudadano as ciu on dip.dui = ciu.dui INNER JOIN partidopolitico as pp on dip.idPartido = pp.idPartido INNER JOIN municipio on municipio.idMunicipio=ciu.idMunicipio INNER JOIN departamento ON departamento.idDepartamento = municipio.idDepartamento WHERE departamento.idDepartamento = ? and pp.idPartido=?;";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
+            pst.setInt(1, dipu.getCiu().getDepartamento().getIdDepartamento());
+            pst.setInt(2, dipu.getPartidoPolitico().getIdPartido());
             rs = pst.executeQuery();       
-            while (rs.next()) {                
-                PartidoPolitico pp = new PartidoPolitico();
+            while (rs.next()) {
                 Ciudadano ciu = new Ciudadano();
                 Diputado dip = new Diputado();
                 dip.setIdDiputado(rs.getInt("idDiputado"));
-                ciu.setDui(rs.getString("dui"));
                 ciu.setNombre(rs.getString("nomDip"));
                 ciu.setApellidos(rs.getString("apeDip"));
-                pp.setIdPartido(rs.getInt("idPartido"));
-                pp.setNombre(rs.getString("partido"));
                 dip.setCiu(ciu);
-                dip.setPartidoPolitico(pp);
                 Blob blob = rs.getBlob("img"); //recuperamos los datos binarios de la base de datos
                 if(blob !=null){
                     //Conversion de binario a cadena base64

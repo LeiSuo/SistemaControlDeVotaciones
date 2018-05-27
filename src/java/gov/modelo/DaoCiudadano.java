@@ -16,7 +16,11 @@ public class DaoCiudadano extends Conexion{
     public List<Ciudadano> mostrarCiudadano() throws Exception{
         ResultSet rs;
         List<Ciudadano> lst = new ArrayList<>();
-        String sql ="SELECT ciudadano.dui, ciudadano.nombres , ciudadano.apellidos ,ciudadano.genero, ciudadano.edad, ciudadano.fechaExpiracion, departamento.nombre as nomDep,municipio.idMunicipio as idMun ,municipio.nombre as nomMun FROM ciudadano inner join municipio on ciudadano.idMunicipio = municipio.idMunicipio inner join departamento on municipio.idDepartamento = departamento.idDepartamento ";
+        String sql ="SELECT ciudadano.dui, ciudadano.nombres , ciudadano.apellidos, "
+                + "ciudadano.genero, ciudadano.edad, departamento.nombre as nomDep "
+                + ",municipio.idMunicipio as idMun ,municipio.nombre as nomMun FROM "
+                + "ciudadano inner join municipio on ciudadano.idMunicipio = municipio.idMunicipio "
+                + "inner join departamento on municipio.idDepartamento = departamento.idDepartamento ";
         Ciudadano ciu;
         try {
             this.conectar();
@@ -34,8 +38,7 @@ public class DaoCiudadano extends Conexion{
                         rs.getString("apellidos"),
                         mu, dep,
                         rs.getString("genero"),
-                        rs.getInt("edad"),
-                        rs.getString("fechaExpiracion"));
+                        rs.getInt("edad"));
                 lst.add(ciu);
             }
         } catch (Exception e) {
@@ -49,7 +52,7 @@ public class DaoCiudadano extends Conexion{
         public void insertarCiudadano(Ciudadano ciu) throws Exception{
         try {
             this.conectar();
-            String sql = "insert into ciudadano values(?,?,?,?,?,?,?)";
+            String sql = "insert into ciudadano values(?,?,?,?,?,?)";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setString(1, ciu.getDui());
             pst.setString(2, ciu.getNombre());
@@ -57,7 +60,6 @@ public class DaoCiudadano extends Conexion{
             pst.setInt(4, ciu.getMunicipio().getIdMunicipio());
             pst.setString(5, ciu.getGenero());
             pst.setInt(6, ciu.getEdad());
-            pst.setString(7, ciu.getFechaExpiracion());
             pst.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -71,15 +73,14 @@ public class DaoCiudadano extends Conexion{
             this.conectar();
             String sql = "update ciudadano set nombres = ?,"
                     + "apellidos = ?, idMunicipio = ?, genero = ?,"
-                    + "edad = ?,fechaExpiracion=? where dui = ?";
+                    + "edad = ? where dui = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);            
             pst.setString(1, ciu.getNombre());
             pst.setString(2, ciu.getApellidos());
             pst.setInt(3, ciu.getMunicipio().getIdMunicipio());
             pst.setString(4, ciu.getGenero());
             pst.setInt(5, ciu.getEdad());
-            pst.setString(6, ciu.getFechaExpiracion());
-            pst.setString(7, ciu.getDui());
+            pst.setString(6, ciu.getDui());
             pst.executeUpdate();
         } catch (Exception e) {
             throw e;

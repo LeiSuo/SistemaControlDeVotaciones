@@ -14,12 +14,11 @@ public class Ciudadano {
     private Departamento departamento;
     private String genero;
     private int edad;
-    private String fechaExpiracion;
 
     public Ciudadano() {
     }
 
-    public Ciudadano(String dui, String nombre, String apellidos, Municipio municipio, Departamento departamento, String genero, int edad, String fechaExpiracion) {
+    public Ciudadano(String dui, String nombre, String apellidos, Municipio municipio, Departamento departamento, String genero, int edad) {
         this.dui = dui;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -27,7 +26,6 @@ public class Ciudadano {
         this.departamento = departamento;
         this.genero = genero;
         this.edad = edad;
-        this.fechaExpiracion = fechaExpiracion;
     }
 
     public String getDui() {
@@ -76,14 +74,6 @@ public class Ciudadano {
 
     public void setEdad(int edad) {
         this.edad = edad;
-    }
-
-    public String getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public void setFechaExpiracion(String fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
     }
 
     public Departamento getDepartamento() {

@@ -123,7 +123,7 @@ public class DaoPartidoPolitico extends Conexion{
     public List<PartidoPolitico> mostrarPV(Votante vot) throws Exception{
         ResultSet rs;
         List<PartidoPolitico> lst = new ArrayList<>();
-        String sql = "SELECT pp.idPartido, pp.nombre, pp.bandera FROM partidopolitico as pp "
+        String sql = "SELECT DISTINCT pp.idPartido, pp.nombre, pp.bandera FROM partidopolitico as pp "
                 + "INNER JOIN diputado as dip ON dip.idPartido = pp.idPartido INNER JOIN "
                 + "ciudadano as ciu ON dip.dui = ciu.dui INNER JOIN municipio as mun ON "
                 + "ciu.idMunicipio = mun.idMunicipio WHERE mun.idDepartamento =?";

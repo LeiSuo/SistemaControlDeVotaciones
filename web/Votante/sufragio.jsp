@@ -40,6 +40,7 @@
         Votante vot = new Votante();
         Departamento dep = new Departamento();
         Ciudadano ciu = new Ciudadano();
+        Diputado di = new Diputado();
     %>
     <body>
         <div class="container-fluid">
@@ -78,17 +79,33 @@
                         <tbody>
                             <tr>
                                 <%
+                                    dep.setIdDepartamento(idDep);
+                                    ciu.setDepartamento(dep);
+                                    di.setCiu(ciu);
                                     for(PartidoPolitico par2:lstPart){
                                 %>
                                 <td>
                                     <table>
                                 <%
-                                    List<Diputado> lstDip = daoDip.mostrar();
+                                    di.setPartidoPolitico(par2);
+                                    List<Diputado> lstDip = daoDip.mostrarDipEl(di);
                                     for(Diputado dip:lstDip){
                                 %>
                                         <tr>
                                             <td>
-                                                s
+                                              <th style="width: 500px">
+                                                <div class="casilla">
+                                                    <%if(dip.getBase64Image()!=null){ %>
+                                                    <div class="cajaText2"><img src = "data: image / jpg; base64, <%= dip.getBase64Image() %>" alt="Sin imagen" height="90px" width="70px"/>
+                                                    </div>
+                                                        <% } %>
+                                                    <div class="cajaText2">
+                                                        <p align="center" class="texto"><%= dip.getCiu().getNombre() %></p>
+                                                        <p align="center" class="texto"><%= dip.getCiu().getApellidos()%></p>
+                                                        <input type="checkbox" align="center">
+                                                    </div>
+                                                </div>
+                                            </th>  
                                             </td>
                                         </tr>
                                 <%

@@ -49,7 +49,6 @@ public class ProcesarCiudadano extends HttpServlet {
             ciuda.setMunicipio(muni);
             ciuda.setGenero(request.getParameter("rdbGenero"));
             ciuda.setEdad(Integer.parseInt(request.getParameter("txtEdad")));
-            ciuda.setFechaExpiracion(request.getParameter("txtFechaCad"));
             if(request.getParameter("btnRegistrar")!=null)
             {
                 daoCiuda.insertarCiudadano(ciuda);

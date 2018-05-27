@@ -28,7 +28,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script>
-            function cargar(dui,nom,ape,municipio,sex,age,date)
+            function cargar(dui,nom,ape,municipio,sex,age)
             {
                 document.FrmCiudadano.txtDui.value=dui;
                 document.FrmCiudadano.txtNombre.value=nom;
@@ -36,7 +36,6 @@
                 document.FrmCiudadano.cmbMunicipio.value=municipio;
                 document.FrmCiudadano.rdbGenero.value=sex;
                 document.FrmCiudadano.txtEdad.value=age;
-                document.FrmCiudadano.txtFechaCad.value=date;
             }
         </script>
         <title>CRUD ciudadano</title>
@@ -164,7 +163,6 @@
                                 <th>Apellidos</th>
                                 <th>Genero</th>
                                 <th>Edad</th>
-                                <th>Fecha de caducidad (DUI)</th>
                                 <th>Departamento</th>
                                 <th>Municipio</th>
                             </tr>
@@ -181,7 +179,6 @@
                                 <td><%=ciuda.getApellidos()%></td>
                                 <td><%=ciuda.getGenero()%></td>
                                 <td><%=ciuda.getEdad()%></td>
-                                <td><%=ciuda.getFechaExpiracion()%></td>
                                 <td><%=ciuda.getDepartamento().getNombre()%></td>
                                 <td><%=ciuda.getMunicipio().getNombre()%></td>
                             </tr>

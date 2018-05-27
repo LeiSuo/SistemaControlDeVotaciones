@@ -28,7 +28,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <script>
-            function cargar(dui,nom,ape,municipio,sex,age,date)
+            function cargar(dui,nom,ape,municipio,sex,age)
             {
                 document.FrmCiudadano.txtDui.value=dui;
                 document.FrmCiudadano.txtNombre.value=nom;
@@ -36,7 +36,6 @@
                 document.FrmCiudadano.cmbMunicipio.value=municipio;
                 document.FrmCiudadano.rdbGenero.value=sex;
                 document.FrmCiudadano.txtEdad.value=age;
-                document.FrmCiudadano.txtFechaCad.value=date;
             }
         </script>
         <title>CRUD ciudadano</title>
@@ -155,11 +154,6 @@
                         </div>
                         <br>
                         <div class="input-group col-lg-6">
-                            <span class="input-group-addon" id="basic-addon1">Fecha caducidad(DUI):</span>
-                            <input type="date" autocomplete="" class="form-control" name="txtFechaCad" aria-describedby="basic-addon1">
-                        </div>
-                        <br>
-                        <div class="input-group col-lg-6">
                             <div class="btn-group">
                                 <button type="reset"  name="btnLimpiar"  class="btn btn-default">Limpiar</button>
                                 <button type="submit" name="btnEliminar"  class="btn btn-default">Eliminar</button>
@@ -180,15 +174,15 @@
                                 <th>Apellidos</th>
                                 <th>Genero</th>
                                 <th>Edad</th>
-                                <th>Fecha de caducidad (DUI)</th>
                                 <th>Departamento</th>
                                 <th>Municipio</th>
+                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <%
                             List<Ciudadano>lstciuda = daoCiu.mostrarCiudadano();
                             for(Ciudadano ciuda:lstciuda)
-                            {     
+                            {
                         %>
                         <tbody>
                             <tr>
@@ -197,7 +191,6 @@
                                 <td><%=ciuda.getApellidos()%></td>
                                 <td><%=ciuda.getGenero()%></td>
                                 <td><%=ciuda.getEdad()%></td>
-                                <td><%=ciuda.getFechaExpiracion()%></td>
                                 <td><%=ciuda.getDepartamento().getNombre()%></td>
                                 <td><%=ciuda.getMunicipio().getNombre()%></td>
                                 <td><a href="JavaScript:cargar('<%=ciuda.getDui()%>',
@@ -205,8 +198,7 @@
                                        '<%=ciuda.getApellidos()%>',
                                        <%=ciuda.getMunicipio().getIdMunicipio()%>,
                                        '<%=ciuda.getGenero()%>',
-                                       <%=ciuda.getEdad()%>,
-                                       '<%=ciuda.getFechaExpiracion()%>')">Seleccionar</a></td>
+                                       <%=ciuda.getEdad()%>)">Seleccionar</a></td>
                             </tr>
                             <%   
                                 }
