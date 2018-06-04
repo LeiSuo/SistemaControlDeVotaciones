@@ -161,7 +161,7 @@ public class DaoDiputado extends Conexion {
         List<Diputado> lst = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "select dip.idDiputado, dip.img, ciu.nombres as nomDip, ciu.apellidos as apeDip from diputado as dip INNER JOIN ciudadano as ciu on dip.dui = ciu.dui INNER JOIN partidopolitico as pp on dip.idPartido = pp.idPartido INNER JOIN municipio on municipio.idMunicipio=ciu.idMunicipio INNER JOIN departamento ON departamento.idDepartamento = municipio.idDepartamento WHERE departamento.idDepartamento = ? and pp.idPartido=?;";
+            String sql = "select dip.dui, dip.idDiputado, dip.img, ciu.nombres as nomDip, ciu.apellidos as apeDip from diputado as dip INNER JOIN ciudadano as ciu on dip.dui = ciu.dui INNER JOIN partidopolitico as pp on dip.idPartido = pp.idPartido INNER JOIN municipio on municipio.idMunicipio=ciu.idMunicipio INNER JOIN departamento ON departamento.idDepartamento = municipio.idDepartamento WHERE departamento.idDepartamento = ? and pp.idPartido=?;";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
             pst.setInt(1, dipu.getCiu().getDepartamento().getIdDepartamento());
             pst.setInt(2, dipu.getPartidoPolitico().getIdPartido());
@@ -170,6 +170,7 @@ public class DaoDiputado extends Conexion {
                 Ciudadano ciu = new Ciudadano();
                 Diputado dip = new Diputado();
                 dip.setIdDiputado(rs.getInt("idDiputado"));
+                ciu.setDui(rs.getInt("dui"));
                 ciu.setNombre(rs.getString("nomDip"));
                 ciu.setApellidos(rs.getString("apeDip"));
                 dip.setCiu(ciu);
