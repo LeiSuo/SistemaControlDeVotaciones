@@ -111,7 +111,7 @@
                         <form class="" action="../procesarCiudadano" method="post" name="FrmCiudadano">
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">DUI:&nbsp&nbsp&nbsp&nbsp</span>
-                            <input type="text" class="form-control" name="txtDui" aria-describedby="basic-addon1">
+                            <input type="number" class="form-control" name="txtDui" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">

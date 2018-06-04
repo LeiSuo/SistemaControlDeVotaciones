@@ -30,7 +30,7 @@ public class DaoDiputado extends Conexion {
                 Ciudadano ciu = new Ciudadano();
                 Diputado dip = new Diputado();
                 dip.setIdDiputado(rs.getInt("idDiputado"));
-                ciu.setDui(rs.getString("dui"));
+                ciu.setDui(rs.getInt("dui"));
                 ciu.setNombre(rs.getString("nomDip"));
                 ciu.setApellidos(rs.getString("apeDip"));
                 pp.setIdPartido(rs.getInt("idPartido"));
@@ -70,7 +70,7 @@ public class DaoDiputado extends Conexion {
             this.conectar();
             String sql = "insert into diputado(dui,idPartido,img) values(?,?,?)";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
-            pst.setString(1, di.getCiu().getDui());
+            pst.setInt(1, di.getCiu().getDui());
             pst.setInt(2, di.getPartidoPolitico().getIdPartido());
             pst.setBlob(3, di.getImagen());
             pst.executeUpdate();
@@ -87,7 +87,7 @@ public class DaoDiputado extends Conexion {
             String sql = "update diputado set dui = ?, idPartido = ?,"
                     + " where idDiputado = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
-            pst.setString(1, di.getCiu().getDui());
+            pst.setInt(1, di.getCiu().getDui());
             pst.setInt(2, di.getPartidoPolitico().getIdPartido());
             pst.setInt(3, di.getIdDiputado());
             pst.executeUpdate();
@@ -104,7 +104,7 @@ public class DaoDiputado extends Conexion {
             String sql = "update diputado set dui = ?, idPartido = ?,"
                     + "img = ? where idDiputado = ?";
             PreparedStatement pst = this.getCon().prepareStatement(sql);
-            pst.setString(1, di.getCiu().getDui());
+            pst.setInt(1, di.getCiu().getDui());
             pst.setInt(2, di.getPartidoPolitico().getIdPartido());
             pst.setBlob(3, di.getImagen());
             pst.setInt(4, di.getIdDiputado());
@@ -138,7 +138,7 @@ public class DaoDiputado extends Conexion {
             this.conectar();
             String var = null;
             PreparedStatement pst = this.getCon().prepareCall(sql);
-            pst.setString(1, di.getCiu().getDui());
+            pst.setInt(1, di.getCiu().getDui());
             res = pst.executeQuery();
             while(res.next()){
                 var = res.getString("idDiputado");

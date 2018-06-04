@@ -42,7 +42,7 @@ public class ProcesarCiudadano extends HttpServlet {
         Municipio muni = new Municipio();
         try 
         {
-            ciuda.setDui(request.getParameter("txtDui"));
+            ciuda.setDui(Integer.parseInt(request.getParameter("txtDui")));
             ciuda.setNombre(request.getParameter("txtNombre"));
             ciuda.setApellidos(request.getParameter("txtApellidos"));
             muni.setIdMunicipio(Integer.parseInt(request.getParameter("cmbMunicipio")));

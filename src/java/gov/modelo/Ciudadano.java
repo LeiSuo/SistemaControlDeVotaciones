@@ -7,7 +7,7 @@ package gov.modelo;
  * @author jose_
  */
 public class Ciudadano {
-    private String dui;
+    private int dui;
     private String nombre;
     private String apellidos;
     private Municipio municipio;
@@ -18,7 +18,7 @@ public class Ciudadano {
     public Ciudadano() {
     }
 
-    public Ciudadano(String dui, String nombre, String apellidos, Municipio municipio, Departamento departamento, String genero, int edad) {
+    public Ciudadano(int dui, String nombre, String apellidos, Municipio municipio, Departamento departamento, String genero, int edad) {
         this.dui = dui;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -28,11 +28,11 @@ public class Ciudadano {
         this.edad = edad;
     }
 
-    public String getDui() {
+    public int getDui() {
         return dui;
     }
 
-    public void setDui(String dui) {
+    public void setDui(int dui) {
         this.dui = dui;
     }
 

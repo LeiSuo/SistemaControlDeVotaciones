@@ -47,13 +47,13 @@ public class ValidarVotante extends HttpServlet {
         List<Votante> lst = new ArrayList<>();
         try {
             if(request.getParameter("btnIngresar")!=null){
-            ciu.setDui(request.getParameter("txtDUI"));
+            ciu.setDui(Integer.parseInt(request.getParameter("txtDUI")));
             vot.setPassword(request.getParameter("txtPassword"));
             vot.setCiudadano(ciu);
             estado = dao.validarRegistro(vot);
             int idDep=0;
             int idMun=0;
-            String dui = null;
+            int dui = 0;
             String envio = null;
             if(estado==0){ // si estado esta en 0 significa que ya ha ejercido el voto
                 msj = "El ciudadano ya ha ejercido su voto";
@@ -67,7 +67,7 @@ public class ValidarVotante extends HttpServlet {
                         idMun = vo.getCiudadano().getMunicipio().getIdMunicipio();
                         envio = vo.getEstado();
                     }
-                     dui = ciu.getDui();
+                    dui = ciu.getDui();
                     request.getSession().setAttribute("idDep",idDep);
                     request.getSession().setAttribute("idMun",idMun);
                     request.getSession().setAttribute("dui", dui);

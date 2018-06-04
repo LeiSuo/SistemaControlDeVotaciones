@@ -116,7 +116,7 @@
                         <br>
                         <div class="input-group col-lg-6">
                             <span class="input-group-addon" id="basic-addon1">DUI:</span>
-                            <input type="text" class="form-control" name="txtDUI" aria-describedby="basic-addon1">
+                            <input type="number" class="form-control" name="txtDUI" aria-describedby="basic-addon1">
                         </div>
                         <br>
                         <div class="input-group col-lg-6">

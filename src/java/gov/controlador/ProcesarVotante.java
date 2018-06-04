@@ -44,7 +44,7 @@ public class ProcesarVotante extends HttpServlet {
         Votante vot = new Votante();
         Ciudadano ciu = new Ciudadano();
         try {
-            ciu.setDui(request.getParameter("txtDui"));
+            ciu.setDui(Integer.parseInt(request.getParameter("txtDui")));
             vot.setCiudadano(ciu);
             vot.setEstado(request.getParameter("cmbEstado"));
             if(request.getParameter("btnRegistrar")!=null){

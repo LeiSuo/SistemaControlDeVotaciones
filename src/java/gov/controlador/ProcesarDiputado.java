@@ -48,7 +48,7 @@ public class ProcesarDiputado extends HttpServlet {
         Ciudadano ciu = new Ciudadano();
         PartidoPolitico pp = new PartidoPolitico();
         try {
-            ciu.setDui(request.getParameter("txtDUI"));
+            ciu.setDui(Integer.parseInt(request.getParameter("txtDUI")));
             pp.setIdPartido(Integer.parseInt(request.getParameter("cmbPartido")));
             dip.setCiu(ciu);
             dip.setPartidoPolitico(pp);

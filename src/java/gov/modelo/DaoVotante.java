@@ -23,7 +23,7 @@ public class DaoVotante extends Conexion{
             res = pst.executeQuery();
             while(res.next()){
                 Ciudadano ciu = new Ciudadano();
-                ciu.setDui(res.getString("dui"));
+                ciu.setDui(res.getInt("dui"));
                 ciu.setNombre(res.getString("nombres"));
                 ciu.setApellidos(res.getString("apellidos"));
                 ciu.setGenero(res.getString("genero"));
@@ -55,7 +55,7 @@ public class DaoVotante extends Conexion{
             this.conectar();
             String sql = "insert into votante(dui, password, estado) values(?,?,?)";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setString(1, vot.getCiudadano().getDui());
+            pre.setInt(1, vot.getCiudadano().getDui());
             pre.setString(2, vot.getPassword());
             pre.setString(3, vot.getEstado());
             pre.executeUpdate();
@@ -73,7 +73,7 @@ public class DaoVotante extends Conexion{
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, vot.getPassword());
             pre.setString(2, vot.getEstado());
-            pre.setString(3, vot.getCiudadano().getDui());
+            pre.setInt(3, vot.getCiudadano().getDui());
             pre.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -87,7 +87,7 @@ public class DaoVotante extends Conexion{
             this.conectar();
             String sql = "DELETE FROM votante WHERE dui=?";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setString(1, vot.getCiudadano().getDui());
+            pre.setInt(1, vot.getCiudadano().getDui());
             pre.executeUpdate();
         } catch (Exception e) {
             throw e;
@@ -104,7 +104,7 @@ public class DaoVotante extends Conexion{
             this.conectar();
             String var = null;
             PreparedStatement pst = this.getCon().prepareCall(sql);
-            pst.setString(1, vot.getCiudadano().getDui());
+            pst.setInt(1, vot.getCiudadano().getDui());
             res = pst.executeQuery();
             while(res.next()){
                 var = res.getString("estado");
@@ -134,7 +134,7 @@ public class DaoVotante extends Conexion{
             this.conectar();
             PreparedStatement pst = this.getCon().prepareCall(sql);
             pst.setString(1, vot.getPassword());
-            pst.setString(2, vot.getCiudadano().getDui());
+            pst.setInt(2, vot.getCiudadano().getDui());
             res = pst.executeQuery();
             while(res.next()){
                 Ciudadano ciu = new Ciudadano();
