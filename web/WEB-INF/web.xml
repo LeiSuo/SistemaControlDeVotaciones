@@ -44,6 +44,10 @@
         <servlet-name>ValidarVotante</servlet-name>
         <servlet-class>gov.controlador.ValidarVotante</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProcesarVoto</servlet-name>
+        <servlet-class>gov.controlador.ProcesarVoto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcesarCiudadano</servlet-name>
         <url-pattern>/procesarCiudadano</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>ValidarVotante</servlet-name>
         <url-pattern>/validarVotante</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProcesarVoto</servlet-name>
+        <url-pattern>/procesarVoto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -21,7 +21,7 @@
         response.sendRedirect("../login.jsp");
     }else{
         String estado = sesion.getAttribute("estado").toString();
-        if(!estado.equals("Activo")){
+        if(!estado.equals("1")){
             response.sendRedirect("../login.jsp");
         }
     }
@@ -51,7 +51,11 @@
                 var txError="";
                 //Inserccion dinamica de validacion de seleccion de checkbox para partido politico
                 <%
-                    int idDep =  (Integer) request.getSession().getAttribute("idDep");
+                    int idDep=0;
+                    if (request.getSession().getAttribute("idDep")!=null) {
+                        idDep =  (Integer) request.getSession().getAttribute("idDep");
+                    }
+                     
                     dep.setIdDepartamento(idDep);
                     ciu.setDepartamento(dep);
                     vot.setCiudadano(ciu);
@@ -84,12 +88,12 @@
                     txError="<div class='alert alert-danger' role='alert'>El total de diputados seleccionados sobrepasa el limite permitido</div>";
                 }
                 //Conteo de votos por partido
-                if(conteoPartido>2){
+                if(conteoPartido>1){
                     votoNulo++;
                     txError="<div class='alert alert-danger' role='alert'>Se han marcado dos o más banderas de partidos</div>";
                 }
                 //conteo de votos para partido  y diputados
-                if(conteoPartido>2 && conteoCruzado>1){
+                if(conteoPartido>1 && conteoCruzado>1){
                     txError="<div class='alert alert-danger' role='alert'>Se ha marcado la bandera de un partido y además una o más candidaturas de otros partidos</div>";
                 }
                 
@@ -111,7 +115,7 @@
                 //Validacion de envio o correccion de voto    
                 if (valido) {
                     console.log("Validacion aceptada");
-                  //document.getElementById("hojaVotacion").submit();
+                    document.getElementById("hojaVotacion").submit();
                 } else {
                     document.getElementById("hojaVotacion").reset();
                     $('#modalMuestrate').modal('show');
@@ -141,7 +145,7 @@
             </div>
             <div class="panel panel-info">
             <div class="panel-heading"><center><H3>ELECCIÓN DE DIPUTADOS Y DIPUTADAS DE LA ASAMBLEA LEGISLATIVA</h3></center></div>
-            <form class="" name="hojaVotacion" action="" method="post" id="hojaVotacion">
+            <form class="" name="hojaVotacion" action="../procesarVoto" method="post" id="hojaVotacion">
                  <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -161,7 +165,7 @@
                                         </center>
                                         <div class="cajaText">
                                             <div align="center" class="texto"><%= par.getNombre() %></div>
-                                            <center><input type="checkbox" align="center" id="<%= par.getIdPartido() %>"></center>
+                                            <center><input type="checkbox" align="center" value="<%= par.getIdPartido() %>" id="<%= par.getIdPartido() %>" name="chkVotPP"></center>
                                         </div>
                                     </div>
                                 </th>
@@ -196,7 +200,7 @@
                                                     <div class="cajaText2">
                                                         <p align="center" class="texto"><%= dip.getCiu().getNombre() %></p>
                                                         <p align="center" class="texto"><%= dip.getCiu().getApellidos()%></p>
-                                                        <input type="checkbox" align="center" id="<%= dip.getCiu().getDui() %>">
+                                                        <input type="checkbox" align="center" value="<%= dip.getCiu().getDui() %>" id="<%= dip.getCiu().getDui() %>" name="chkVotDip">
                                                     </div>
                                                 </div>
                                             </th>  

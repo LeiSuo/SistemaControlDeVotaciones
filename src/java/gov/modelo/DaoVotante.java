@@ -157,4 +157,19 @@ public class DaoVotante extends Conexion{
         }
         return lst;
     }
+    
+    public void modificarEstado(Votante vot) throws Exception{
+        try {
+            this.conectar();
+            String sql = "UPDATE votante SET estado =? where dui=?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, vot.getEstado());
+            pre.setInt(2, vot.getCiudadano().getDui());
+            pre.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            this.desconectar();
+        }
+    }
 }

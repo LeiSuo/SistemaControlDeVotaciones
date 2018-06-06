@@ -12,7 +12,7 @@
         response.sendRedirect("../login.jsp");
     }else{
         String estado = sesion.getAttribute("estado").toString();
-        if(!estado.equals("Activo")){
+        if(!estado.equals("1")){
             response.sendRedirect("../login.jsp");
         }
     }

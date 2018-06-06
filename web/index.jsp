@@ -4,7 +4,9 @@
     Author     : SCOR64
 --%>
 
+<%@page import="gov.modelo.Voto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true" %>
 <!DOCTYPE html>
 <html>
     <head>

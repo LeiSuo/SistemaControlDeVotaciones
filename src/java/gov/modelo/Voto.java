@@ -14,18 +14,10 @@ public class Voto {
     private TipoVoto  tipoVoto;
     private int idVoto;
     private int datoVoto;
-    private int voto;
 
     public Voto() {
     }
-
-    public Voto(Ciudadano ciudadano, TipoVoto tipoVoto, int idVoto, int voto) {
-        this.ciudadano = ciudadano;
-        this.tipoVoto = tipoVoto;
-        this.idVoto = idVoto;
-        this.voto = voto;
-    }
-
+    
     public Ciudadano getCiudadano() {
         return ciudadano;
     }
@@ -41,15 +33,13 @@ public class Voto {
     public void setTipoVoto(TipoVoto tipoVoto) {
         this.tipoVoto = tipoVoto;
     }
-    
-    
 
-    public int getVoto() {
-        return voto;
+    public int getDatoVoto() {
+        return datoVoto;
     }
 
-    public void setVoto(int voto) {
-        this.voto = voto;
+    public void setDatoVoto(int datoVoto) {
+        this.datoVoto = datoVoto;
     }
     
     public int getIdVoto() {
